@@ -1,19 +1,154 @@
 aid: azure-devops
 url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/apis.yml
 apis:
-- aid: azure-devops:azure-devops-api
-  name: Azure DevOps Services API
+- aid: azure-devops:azure-devops-work-item-tracking-api
+  name: Azure DevOps Work Item Tracking API
   tags:
   - CI/CD
   - DevOps
-  - Version Control
+  - Work Items
   - Project Management
   - Azure
   image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
   baseURL: https://dev.azure.com/{organization}
   properties:
-  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/
-    type: Documentation
+  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/wit/?view=azure-devops-rest-7.2
+    type: Reference
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/how-to/call-rest-api?view=azure-devops
+    type: GettingStarted
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/authentication-guidance?view=azure-devops
+    type: Authentication
   description: >-
-    Azure DevOps Services provides REST APIs for CI/CD pipelines, Git repositories, work item tracking, test management, and artifact feeds. The APIs enable programmatic access to build and release pipelines, pull requests, boards, and project-level configuration across Azure DevOps organizations.
+    The Azure DevOps Work Item Tracking API provides REST endpoints for creating, updating, querying, and managing work items including bugs, tasks, user stories, epics, and features across Azure Boards. APIs support custom fields, area paths, iteration paths, and link types for Agile, Scrum, and CMMI process templates.
+
+- aid: azure-devops:azure-devops-git-api
+  name: Azure DevOps Git Repositories API
+  tags:
+  - CI/CD
+  - DevOps
+  - Git
+  - Version Control
+  - Azure
+  - Pull Requests
+  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
+  humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+  baseURL: https://dev.azure.com/{organization}
+  properties:
+  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/git/?view=azure-devops-rest-7.2
+    type: Reference
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/how-to/call-rest-api?view=azure-devops
+    type: GettingStarted
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/authentication-guidance?view=azure-devops
+    type: Authentication
+  description: >-
+    The Azure DevOps Git Repositories API provides REST endpoints for managing Git repositories, branches, commits, pull requests, and code reviews. APIs enable automation of repository management, pull request workflows, branch policies, and code review processes within Azure Repos.
+
+- aid: azure-devops:azure-devops-pipelines-api
+  name: Azure DevOps Pipelines API
+  tags:
+  - CI/CD
+  - DevOps
+  - Pipelines
+  - Build
+  - Release
+  - Azure
+  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
+  humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+  baseURL: https://dev.azure.com/{organization}
+  properties:
+  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.2
+    type: Reference
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/how-to/call-rest-api?view=azure-devops
+    type: GettingStarted
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/authentication-guidance?view=azure-devops
+    type: Authentication
+  description: >-
+    The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.
+
+- aid: azure-devops:azure-devops-artifacts-api
+  name: Azure DevOps Artifacts API
+  tags:
+  - CI/CD
+  - DevOps
+  - Artifacts
+  - Package Management
+  - NuGet
+  - npm
+  - Azure
+  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
+  humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+  baseURL: https://pkgs.dev.azure.com/{organization}
+  properties:
+  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/artifacts/?view=azure-devops-rest-7.2
+    type: Reference
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/how-to/call-rest-api?view=azure-devops
+    type: GettingStarted
+  description: >-
+    The Azure DevOps Artifacts API provides REST endpoints for managing package feeds including NuGet, npm, Maven, Python, and Universal Packages. APIs support feed creation, package publishing, version management, and upstream source configuration for artifact management in DevOps workflows.
+
+- aid: azure-devops:azure-devops-test-plans-api
+  name: Azure DevOps Test Plans API
+  tags:
+  - CI/CD
+  - DevOps
+  - Testing
+  - Test Plans
+  - Azure
+  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
+  humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+  baseURL: https://dev.azure.com/{organization}
+  properties:
+  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/testplan/?view=azure-devops-rest-7.2
+    type: Reference
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/how-to/call-rest-api?view=azure-devops
+    type: GettingStarted
+  description: >-
+    The Azure DevOps Test Plans API provides REST endpoints for managing test plans, test suites, test cases, and test runs. APIs support automated test management, test result reporting, and integration with CI/CD pipelines for comprehensive quality assurance workflows.
+
+- aid: azure-devops:azure-devops-release-api
+  name: Azure DevOps Release API
+  tags:
+  - CI/CD
+  - DevOps
+  - Release Management
+  - Deployment
+  - Azure
+  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
+  humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+  baseURL: https://vsrm.dev.azure.com/{organization}
+  properties:
+  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/release/?view=azure-devops-rest-7.1
+    type: Reference
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/how-to/call-rest-api?view=azure-devops
+    type: GettingStarted
+  description: >-
+    The Azure DevOps Release API provides REST endpoints for managing release pipelines, deployments, and environments. APIs support release definition management, deployment approvals, environment configuration, and release history tracking for continuous delivery workflows.
+
+common:
+  - url: https://azure.microsoft.com/en-us/products/devops
+    type: Website
+  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+    type: Portal
+  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-7.2
+    type: Reference
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/how-to/call-rest-api?view=azure-devops
+    type: GettingStarted
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/authentication-guidance?view=azure-devops
+    type: Authentication
+  - url: https://learn.microsoft.com/en-us/azure/devops/integrate/concepts/rate-limits?view=azure-devops
+    type: RateLimits
+  - url: https://learn.microsoft.com/en-us/azure/devops/release-notes/features-timeline-released
+    type: ChangeLog
+  - url: https://learn.microsoft.com/en-us/azure/devops/dev-resources/?view=azure-devops
+    type: Documentation
+  - url: https://github.com/microsoft/azure-devops-node-api
+    type: SDKs
+  - url: https://github.com/microsoft/azure-devops-extension-sdk
+    type: SDKs
+
+maintainers:
+- name: Kin Lane
+  email: kin@apievangelist.com
+
+modified: '2026-03-18'
