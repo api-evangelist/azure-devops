@@ -1,0 +1,19 @@
+aid: azure-devops
+url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/apis.yml
+apis:
+- aid: azure-devops:azure-devops-api
+  name: Azure DevOps Services API
+  tags:
+  - CI/CD
+  - DevOps
+  - Version Control
+  - Project Management
+  - Azure
+  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
+  humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+  baseURL: https://dev.azure.com/{organization}
+  properties:
+  - url: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+    type: Documentation
+  description: >-
+    Azure DevOps Services provides REST APIs for CI/CD pipelines, Git repositories, work item tracking, test management, and artifact feeds. The APIs enable programmatic access to build and release pipelines, pull requests, boards, and project-level configuration across Azure DevOps organizations.
