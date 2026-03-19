@@ -1,0 +1,456 @@
+openapi: 3.1.0
+info:
+  title: Azure DevOps Pipelines API
+  description: >-
+    The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build
+    and release pipelines. APIs support pipeline creation, triggering builds, retrieving
+    build results, managing release definitions, and automating deployment workflows
+    across Azure DevOps organizations.
+  version: "7.2"
+  contact:
+    name: Microsoft Azure DevOps
+    url: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+
+servers:
+  - url: https://dev.azure.com/{organization}
+    description: Azure DevOps Services
+    variables:
+      organization:
+        description: Azure DevOps organization name
+        default: my-org
+
+security:
+  - personalAccessToken: []
+  - oauth2: []
+
+tags:
+  - name: Pipelines
+    description: Pipeline definition management
+  - name: Runs
+    description: Pipeline run execution and monitoring
+  - name: Builds
+    description: Build definition and results
+
+paths:
+  /{project}/_apis/pipelines:
+    get:
+      operationId: listPipelines
+      summary: List pipelines
+      description: List all pipelines in the project.
+      tags: [Pipelines]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: $orderBy
+          in: query
+          schema:
+            type: string
+        - name: $top
+          in: query
+          schema:
+            type: integer
+        - name: continuationToken
+          in: query
+          schema:
+            type: string
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.1"
+      responses:
+        '200':
+          description: List of pipelines
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Pipeline'
+
+    post:
+      operationId: createPipeline
+      summary: Create a pipeline
+      description: Creates a new pipeline from a YAML definition in a repository.
+      tags: [Pipelines]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePipelineRequest'
+      responses:
+        '200':
+          description: Created pipeline
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+
+  /{project}/_apis/pipelines/{pipelineId}:
+    get:
+      operationId: getPipeline
+      summary: Get pipeline
+      description: Get a specific pipeline by ID.
+      tags: [Pipelines]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pipelineId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.1"
+      responses:
+        '200':
+          description: Pipeline details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /{project}/_apis/pipelines/{pipelineId}/runs:
+    get:
+      operationId: listPipelineRuns
+      summary: List pipeline runs
+      description: List runs for a specific pipeline.
+      tags: [Runs]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pipelineId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.1"
+      responses:
+        '200':
+          description: Pipeline runs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PipelineRun'
+
+    post:
+      operationId: runPipeline
+      summary: Run a pipeline
+      description: Triggers a new run of the specified pipeline.
+      tags: [Runs]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pipelineId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunPipelineRequest'
+      responses:
+        '200':
+          description: Pipeline run started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineRun'
+
+  /{project}/_apis/pipelines/{pipelineId}/runs/{runId}:
+    get:
+      operationId: getPipelineRun
+      summary: Get pipeline run
+      description: Get the details of a specific pipeline run.
+      tags: [Runs]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pipelineId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.1"
+      responses:
+        '200':
+          description: Pipeline run details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineRun'
+
+components:
+  securitySchemes:
+    personalAccessToken:
+      type: http
+      scheme: basic
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.vssps.visualstudio.com/oauth2/authorize
+          tokenUrl: https://app.vssps.visualstudio.com/oauth2/token
+          scopes:
+            vso.build: Read build data
+            vso.build_execute: Queue and manage builds
+
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Pipeline:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        revision:
+          type: integer
+        folder:
+          type: string
+        configuration:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: [yaml, designerJson, justInTime, designerHyphenJson]
+            path:
+              type: string
+            repository:
+              type: object
+              properties:
+                id:
+                  type: string
+                type:
+                  type: string
+                  enum: [azureReposGit, gitHub, bitbucket]
+        url:
+          type: string
+        links:
+          type: object
+
+    CreatePipelineRequest:
+      type: object
+      required: [name, configuration]
+      properties:
+        name:
+          type: string
+        folder:
+          type: string
+        configuration:
+          type: object
+          required: [type, path, repository]
+          properties:
+            type:
+              type: string
+              enum: [yaml]
+            path:
+              type: string
+              description: Path to the YAML file in the repository
+            repository:
+              type: object
+              required: [id, type]
+              properties:
+                id:
+                  type: string
+                type:
+                  type: string
+                  enum: [azureReposGit, gitHub]
+
+    PipelineRun:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        state:
+          type: string
+          enum: [unknown, inProgress, canceling, completed]
+        result:
+          type: string
+          enum: [unknown, succeeded, failed, canceled]
+        createdDate:
+          type: string
+          format: date-time
+        finishedDate:
+          type: string
+          format: date-time
+        pipeline:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+        resources:
+          type: object
+          properties:
+            repositories:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  repository:
+                    type: object
+                  refName:
+                    type: string
+                  version:
+                    type: string
+        variables:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              value:
+                type: string
+              isSecret:
+                type: boolean
+        url:
+          type: string
+
+    RunPipelineRequest:
+      type: object
+      properties:
+        resources:
+          type: object
+          properties:
+            repositories:
+              type: object
+              properties:
+                self:
+                  type: object
+                  properties:
+                    refName:
+                      type: string
+        variables:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              value:
+                type: string
+              isSecret:
+                type: boolean
+        templateParameters:
+          type: object
+          additionalProperties: true
+        stagesToSkip:
+          type: array
+          items:
+            type: string
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errorCode:
+          type: integer

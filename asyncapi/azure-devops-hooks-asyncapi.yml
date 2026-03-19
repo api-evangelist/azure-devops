@@ -1,0 +1,381 @@
+asyncapi: 2.6.0
+info:
+  title: Azure DevOps Service Hooks (Webhooks)
+  description: >-
+    Azure DevOps Service Hooks deliver event notifications for work item changes,
+    build completions, pull request events, code pushes, and release deployments.
+    Service hooks are configured in Azure DevOps settings and delivered via HTTPS POST
+    to registered consumer endpoints.
+  version: "7.2"
+  contact:
+    name: Microsoft Azure DevOps
+    url: https://learn.microsoft.com/en-us/azure/devops/service-hooks/
+
+servers:
+  consumer:
+    url: https://your-consumer.example.com/hooks/azure-devops
+    protocol: https
+    description: Your registered HTTPS consumer endpoint for Azure DevOps service hooks
+
+channels:
+  workitem.created:
+    description: Published when a work item is created in Azure Boards.
+    subscribe:
+      operationId: onWorkItemCreated
+      summary: Work item created
+      description: Receive notifications when a new work item is created.
+      tags:
+        - name: WorkItems
+      message:
+        $ref: '#/components/messages/WorkItemCreatedEvent'
+
+  workitem.updated:
+    description: Published when a work item is updated in Azure Boards.
+    subscribe:
+      operationId: onWorkItemUpdated
+      summary: Work item updated
+      description: Receive notifications when a work item field is changed.
+      tags:
+        - name: WorkItems
+      message:
+        $ref: '#/components/messages/WorkItemUpdatedEvent'
+
+  build.complete:
+    description: Published when a build pipeline run completes.
+    subscribe:
+      operationId: onBuildComplete
+      summary: Build completed
+      description: Receive notifications when a CI/CD pipeline build finishes.
+      tags:
+        - name: Builds
+      message:
+        $ref: '#/components/messages/BuildCompleteEvent'
+
+  git.push:
+    description: Published when code is pushed to a repository.
+    subscribe:
+      operationId: onGitPush
+      summary: Code pushed to repository
+      description: Receive notifications when commits are pushed to an Azure Repos Git repository.
+      tags:
+        - name: Git
+      message:
+        $ref: '#/components/messages/GitPushEvent'
+
+  git.pullrequest.created:
+    description: Published when a pull request is created.
+    subscribe:
+      operationId: onPullRequestCreated
+      summary: Pull request created
+      description: Receive notifications when a new pull request is opened.
+      tags:
+        - name: PullRequests
+      message:
+        $ref: '#/components/messages/PullRequestEvent'
+
+  git.pullrequest.merged:
+    description: Published when a pull request is merged.
+    subscribe:
+      operationId: onPullRequestMerged
+      summary: Pull request merged
+      description: Receive notifications when a pull request is completed and merged.
+      tags:
+        - name: PullRequests
+      message:
+        $ref: '#/components/messages/PullRequestEvent'
+
+  release.deployment.completed:
+    description: Published when a release deployment completes.
+    subscribe:
+      operationId: onReleaseDeploymentCompleted
+      summary: Release deployment completed
+      description: Receive notifications when a release pipeline stage deployment finishes.
+      tags:
+        - name: Releases
+      message:
+        $ref: '#/components/messages/ReleaseDeploymentEvent'
+
+components:
+  messages:
+    WorkItemCreatedEvent:
+      name: WorkItemCreatedEvent
+      title: Work Item Created
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WorkItemEventPayload'
+
+    WorkItemUpdatedEvent:
+      name: WorkItemUpdatedEvent
+      title: Work Item Updated
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WorkItemUpdatedPayload'
+
+    BuildCompleteEvent:
+      name: BuildCompleteEvent
+      title: Build Complete
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BuildEventPayload'
+
+    GitPushEvent:
+      name: GitPushEvent
+      title: Git Push
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/GitPushPayload'
+
+    PullRequestEvent:
+      name: PullRequestEvent
+      title: Pull Request Event
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PullRequestPayload'
+
+    ReleaseDeploymentEvent:
+      name: ReleaseDeploymentEvent
+      title: Release Deployment Completed
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ReleaseDeploymentPayload'
+
+  schemas:
+    ServiceHookEnvelope:
+      type: object
+      required: [id, eventType, publisherId, resource]
+      properties:
+        id:
+          type: string
+          description: Service hook event ID (UUID)
+        eventType:
+          type: string
+        publisherId:
+          type: string
+        message:
+          type: object
+          properties:
+            text:
+              type: string
+            html:
+              type: string
+        resourceVersion:
+          type: string
+        resourceContainers:
+          type: object
+          properties:
+            collection:
+              type: object
+              properties:
+                id:
+                  type: string
+            account:
+              type: object
+              properties:
+                id:
+                  type: string
+            project:
+              type: object
+              properties:
+                id:
+                  type: string
+        createdDate:
+          type: string
+          format: date-time
+
+    WorkItemEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/ServiceHookEnvelope'
+        - type: object
+          properties:
+            eventType:
+              type: string
+              enum: ["workitem.created", "workitem.updated", "workitem.deleted"]
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                rev:
+                  type: integer
+                fields:
+                  type: object
+                  additionalProperties: true
+                url:
+                  type: string
+
+    WorkItemUpdatedPayload:
+      allOf:
+        - $ref: '#/components/schemas/ServiceHookEnvelope'
+        - type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                workItemId:
+                  type: integer
+                revisedBy:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                revisedDate:
+                  type: string
+                  format: date-time
+                fields:
+                  type: object
+                  description: Changed fields with old and new values
+                  additionalProperties:
+                    type: object
+                    properties:
+                      oldValue:
+                        description: Previous value
+                      newValue:
+                        description: New value
+
+    BuildEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/ServiceHookEnvelope'
+        - type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                id:
+                  type: integer
+                buildNumber:
+                  type: string
+                status:
+                  type: string
+                  enum: [succeeded, failed, canceled, partiallySucceeded]
+                result:
+                  type: string
+                startTime:
+                  type: string
+                  format: date-time
+                finishTime:
+                  type: string
+                  format: date-time
+                definition:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+
+    GitPushPayload:
+      allOf:
+        - $ref: '#/components/schemas/ServiceHookEnvelope'
+        - type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                pushId:
+                  type: integer
+                date:
+                  type: string
+                  format: date-time
+                pushedBy:
+                  type: object
+                  properties:
+                    displayName:
+                      type: string
+                    uniqueName:
+                      type: string
+                commits:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      commitId:
+                        type: string
+                      comment:
+                        type: string
+                      author:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          email:
+                            type: string
+                repository:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                refUpdates:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      oldObjectId:
+                        type: string
+                      newObjectId:
+                        type: string
+
+    PullRequestPayload:
+      allOf:
+        - $ref: '#/components/schemas/ServiceHookEnvelope'
+        - type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                pullRequestId:
+                  type: integer
+                title:
+                  type: string
+                status:
+                  type: string
+                  enum: [active, abandoned, completed]
+                createdBy:
+                  type: object
+                  properties:
+                    displayName:
+                      type: string
+                sourceRefName:
+                  type: string
+                targetRefName:
+                  type: string
+                mergeStatus:
+                  type: string
+                repository:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+
+    ReleaseDeploymentPayload:
+      allOf:
+        - $ref: '#/components/schemas/ServiceHookEnvelope'
+        - type: object
+          properties:
+            resource:
+              type: object
+              properties:
+                release:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                environment:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    status:
+                      type: string
+                      enum: [succeeded, failed, canceled, partiallySucceeded]

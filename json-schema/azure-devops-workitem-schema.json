@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/json-schema/azure-devops-workitem-schema.json",
+  "title": "Azure DevOps Work Item",
+  "description": "JSON Schema for an Azure DevOps work item (Bug, Task, User Story, Epic, Feature, etc.).",
+  "type": "object",
+  "required": ["id", "rev", "fields"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Work item ID",
+      "minimum": 1
+    },
+    "rev": {
+      "type": "integer",
+      "description": "Work item revision number",
+      "minimum": 1
+    },
+    "fields": {
+      "type": "object",
+      "description": "Work item field values keyed by reference name",
+      "properties": {
+        "System.Id": {"type": "integer"},
+        "System.Title": {"type": "string"},
+        "System.WorkItemType": {
+          "type": "string",
+          "description": "Work item type (Bug, Task, User Story, Epic, Feature, Test Case, etc.)"
+        },
+        "System.State": {
+          "type": "string",
+          "description": "Current workflow state"
+        },
+        "System.Reason": {"type": "string"},
+        "System.AssignedTo": {
+          "type": "object",
+          "properties": {
+            "displayName": {"type": "string"},
+            "id": {"type": "string"},
+            "uniqueName": {"type": "string"},
+            "imageUrl": {"type": "string"}
+          }
+        },
+        "System.CreatedDate": {"type": "string", "format": "date-time"},
+        "System.CreatedBy": {
+          "type": "object",
+          "properties": {
+            "displayName": {"type": "string"},
+            "uniqueName": {"type": "string"}
+          }
+        },
+        "System.ChangedDate": {"type": "string", "format": "date-time"},
+        "System.TeamProject": {"type": "string"},
+        "System.AreaPath": {"type": "string"},
+        "System.IterationPath": {"type": "string"},
+        "System.Description": {"type": "string"},
+        "System.Tags": {"type": "string"},
+        "Microsoft.VSTS.Common.Priority": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "Microsoft.VSTS.Common.Severity": {
+          "type": "string",
+          "enum": ["1 - Critical", "2 - High", "3 - Medium", "4 - Low"]
+        },
+        "Microsoft.VSTS.Scheduling.StoryPoints": {
+          "type": "number"
+        },
+        "Microsoft.VSTS.Scheduling.RemainingWork": {
+          "type": "number"
+        },
+        "Microsoft.VSTS.Scheduling.CompletedWork": {
+          "type": "number"
+        },
+        "Microsoft.VSTS.Build.IntegrationBuild": {
+          "type": "string"
+        },
+        "System.BoardColumn": {"type": "string"},
+        "System.BoardLane": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "relations": {
+      "type": "array",
+      "description": "Links to related work items and artifacts",
+      "items": {
+        "$ref": "#/$defs/WorkItemRelation"
+      }
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL for the work item"
+    }
+  },
+  "$defs": {
+    "WorkItemRelation": {
+      "type": "object",
+      "required": ["rel", "url"],
+      "properties": {
+        "rel": {
+          "type": "string",
+          "description": "Relation type reference name",
+          "examples": [
+            "System.LinkTypes.Hierarchy-Forward",
+            "System.LinkTypes.Hierarchy-Reverse",
+            "System.LinkTypes.Related",
+            "System.LinkTypes.Duplicate-Forward",
+            "Microsoft.VSTS.TestCase.SharedParameterReferencedBy"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "comment": {"type": "string"},
+            "isLocked": {"type": "boolean"}
+          }
+        }
+      }
+    }
+  }
+}

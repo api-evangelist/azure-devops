@@ -1,0 +1,545 @@
+openapi: 3.1.0
+info:
+  title: Azure DevOps Work Item Tracking API
+  description: >-
+    The Azure DevOps Work Item Tracking API provides REST endpoints for creating,
+    updating, querying, and managing work items including bugs, tasks, user stories,
+    epics, and features across Azure Boards. Supports custom fields, area paths,
+    iteration paths, and link types for Agile, Scrum, and CMMI process templates.
+  version: "7.2"
+  contact:
+    name: Microsoft Azure DevOps
+    url: https://learn.microsoft.com/en-us/rest/api/azure/devops/
+
+servers:
+  - url: https://dev.azure.com/{organization}
+    description: Azure DevOps Services
+    variables:
+      organization:
+        description: Azure DevOps organization name
+        default: my-org
+
+security:
+  - personalAccessToken: []
+  - oauth2: []
+
+tags:
+  - name: WorkItems
+    description: Work item CRUD and management
+  - name: Queries
+    description: Work item query execution
+  - name: Fields
+    description: Work item field definitions
+
+paths:
+  /{project}/_apis/wit/workitems/{id}:
+    get:
+      operationId: getWorkItem
+      summary: Get work item by ID
+      description: >-
+        Returns a single work item by its numeric ID. Supports field selection
+        and expansion of related entities.
+      tags: [WorkItems]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          description: Project name or ID
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          description: Work item ID
+          schema:
+            type: integer
+        - name: $expand
+          in: query
+          description: Expand related entities (all, fields, relations, links, none)
+          schema:
+            type: string
+            enum: [all, fields, relations, links, none]
+        - name: $select
+          in: query
+          description: Comma-separated list of fields to return
+          schema:
+            type: string
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.3"
+      responses:
+        '200':
+          description: Work item details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkItem'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    patch:
+      operationId: updateWorkItem
+      summary: Update work item
+      description: >-
+        Updates a work item using JSON Patch operations. Supports updating fields,
+        adding/removing links, and attaching files.
+      tags: [WorkItems]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.3"
+        - name: suppressNotifications
+          in: query
+          schema:
+            type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/JsonPatchOperation'
+      responses:
+        '200':
+          description: Updated work item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkItem'
+
+  /{project}/_apis/wit/workitems/${type}:
+    post:
+      operationId: createWorkItem
+      summary: Create a new work item
+      description: >-
+        Creates a new work item of the specified type. Uses JSON Patch to set field values.
+      tags: [WorkItems]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: path
+          required: true
+          description: Work item type (e.g., Bug, Task, User Story, Epic, Feature)
+          schema:
+            type: string
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.3"
+      requestBody:
+        required: true
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/JsonPatchOperation'
+            examples:
+              createBug:
+                summary: Create a Bug work item
+                value:
+                  - op: add
+                    path: /fields/System.Title
+                    value: "Fix login button on mobile"
+                  - op: add
+                    path: /fields/Microsoft.VSTS.TCM.ReproSteps
+                    value: "1. Open app on mobile\n2. Tap login button\n3. Nothing happens"
+                  - op: add
+                    path: /fields/System.AreaPath
+                    value: "MyProject\\Frontend"
+      responses:
+        '200':
+          description: Created work item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /{project}/_apis/wit/workitems:
+    get:
+      operationId: getWorkItemsBatch
+      summary: Get work items by IDs
+      description: Returns multiple work items by a list of IDs.
+      tags: [WorkItems]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: ids
+          in: query
+          required: true
+          description: Comma-separated list of work item IDs (max 200)
+          schema:
+            type: string
+        - name: $expand
+          in: query
+          schema:
+            type: string
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.3"
+      responses:
+        '200':
+          description: List of work items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkItem'
+
+  /{project}/_apis/wit/wiql:
+    post:
+      operationId: queryWorkItemsByWiql
+      summary: Query work items using WIQL
+      description: >-
+        Executes a Work Item Query Language (WIQL) query to find work items
+        matching the specified criteria.
+      tags: [Queries]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: $top
+          in: query
+          description: Maximum number of results to return
+          schema:
+            type: integer
+            maximum: 20000
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.2"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [query]
+              properties:
+                query:
+                  type: string
+                  description: WIQL query string
+                  example: "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.TeamProject] = @project AND [System.State] = 'Active' ORDER BY [System.CreatedDate] DESC"
+      responses:
+        '200':
+          description: Query results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WiqlResult'
+
+  /{project}/_apis/wit/fields:
+    get:
+      operationId: listWorkItemFields
+      summary: List work item fields
+      description: Returns all work item fields defined in the project or organization.
+      tags: [Fields]
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: api-version
+          in: query
+          required: true
+          schema:
+            type: string
+            default: "7.2-preview.3"
+      responses:
+        '200':
+          description: Work item fields
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkItemField'
+
+components:
+  securitySchemes:
+    personalAccessToken:
+      type: http
+      scheme: basic
+      description: Use empty username and PAT as password (Basic base64(":PAT"))
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://app.vssps.visualstudio.com/oauth2/authorize
+          tokenUrl: https://app.vssps.visualstudio.com/oauth2/token
+          scopes:
+            vso.work: Read work items
+            vso.work_write: Read and write work items
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    WorkItem:
+      type: object
+      description: Azure DevOps work item
+      properties:
+        id:
+          type: integer
+          description: Work item ID
+        rev:
+          type: integer
+          description: Revision number
+        fields:
+          type: object
+          description: Work item field values
+          additionalProperties: true
+          properties:
+            System.Id:
+              type: integer
+            System.Title:
+              type: string
+            System.WorkItemType:
+              type: string
+            System.State:
+              type: string
+            System.Reason:
+              type: string
+            System.AssignedTo:
+              type: object
+              properties:
+                displayName:
+                  type: string
+                id:
+                  type: string
+                uniqueName:
+                  type: string
+            System.CreatedDate:
+              type: string
+              format: date-time
+            System.CreatedBy:
+              type: object
+              properties:
+                displayName:
+                  type: string
+            System.ChangedDate:
+              type: string
+              format: date-time
+            System.TeamProject:
+              type: string
+            System.AreaPath:
+              type: string
+            System.IterationPath:
+              type: string
+            System.Description:
+              type: string
+            System.Tags:
+              type: string
+            Microsoft.VSTS.Common.Priority:
+              type: integer
+              minimum: 1
+              maximum: 4
+            Microsoft.VSTS.Common.Severity:
+              type: string
+        relations:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkItemRelation'
+        url:
+          type: string
+          format: uri
+
+    WorkItemRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+          description: Relation type (e.g., System.LinkTypes.Hierarchy-Forward, System.LinkTypes.Related)
+        url:
+          type: string
+          format: uri
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            comment:
+              type: string
+
+    JsonPatchOperation:
+      type: object
+      required: [op, path]
+      properties:
+        op:
+          type: string
+          enum: [add, remove, replace, copy, move, test]
+        path:
+          type: string
+          description: JSON Pointer path to the field
+        value:
+          description: New value for add/replace operations
+        from:
+          type: string
+          description: Source path for copy/move operations
+
+    WiqlResult:
+      type: object
+      properties:
+        queryType:
+          type: string
+          enum: [flat, tree, oneHop]
+        asOf:
+          type: string
+          format: date-time
+        workItems:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              url:
+                type: string
+        workItemRelations:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: object
+                properties:
+                  id:
+                    type: integer
+              target:
+                type: object
+                properties:
+                  id:
+                    type: integer
+              rel:
+                type: string
+
+    WorkItemField:
+      type: object
+      properties:
+        name:
+          type: string
+        referenceName:
+          type: string
+        type:
+          type: string
+          enum: [string, integer, dateTime, plainText, html, treePath, boolean, double, guid]
+        readOnly:
+          type: boolean
+        isQueryable:
+          type: boolean
+        isIdentity:
+          type: boolean
+
+    Error:
+      type: object
+      properties:
+        id:
+          type: string
+        innerException:
+          type: object
+        message:
+          type: string
+        typeName:
+          type: string
+        typeKey:
+          type: string
+        errorCode:
+          type: integer
+        eventId:
+          type: integer

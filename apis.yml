@@ -19,6 +19,8 @@ apis:
     type: GettingStarted
   - url: https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/authentication-guidance?view=azure-devops
     type: Authentication
+  - url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/openapi/azure-devops-work-items-openapi.yml
+    type: OpenAPI
   description: >-
     The Azure DevOps Work Item Tracking API provides REST endpoints for creating, updating, querying, and managing work items including bugs, tasks, user stories, epics, and features across Azure Boards. APIs support custom fields, area paths, iteration paths, and link types for Agile, Scrum, and CMMI process templates.
 
@@ -63,6 +65,8 @@ apis:
     type: GettingStarted
   - url: https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/authentication-guidance?view=azure-devops
     type: Authentication
+  - url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/openapi/azure-devops-pipelines-openapi.yml
+    type: OpenAPI
   description: >-
     The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.
 
@@ -146,6 +150,16 @@ common:
     type: SDKs
   - url: https://github.com/microsoft/azure-devops-extension-sdk
     type: SDKs
+  - url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/openapi/azure-devops-work-items-openapi.yml
+    type: OpenAPI
+  - url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/openapi/azure-devops-pipelines-openapi.yml
+    type: OpenAPI
+  - url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/asyncapi/azure-devops-hooks-asyncapi.yml
+    type: AsyncAPI
+  - url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/json-schema/azure-devops-workitem-schema.json
+    type: JSONSchema
+  - url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/json-ld/azure-devops-context.jsonld
+    type: JSONLDContext
 
 maintainers:
 - name: Kin Lane

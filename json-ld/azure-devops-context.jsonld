@@ -1,0 +1,67 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "ado": "https://dev.azure.com/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "WorkItem": {
+      "@id": "schema:Action",
+      "@context": {
+        "id": {"@id": "schema:identifier", "@type": "xsd:integer"},
+        "rev": {"@id": "ado:revision", "@type": "xsd:integer"},
+        "url": {"@id": "schema:url", "@type": "@id"},
+        "fields": {
+          "@id": "ado:fields",
+          "@context": {
+            "System.Id": {"@id": "schema:identifier"},
+            "System.Title": {"@id": "schema:name"},
+            "System.WorkItemType": {"@id": "schema:additionalType"},
+            "System.State": {"@id": "ado:workItemState"},
+            "System.AssignedTo": {"@id": "schema:assignee"},
+            "System.CreatedDate": {"@id": "schema:dateCreated", "@type": "xsd:dateTime"},
+            "System.CreatedBy": {"@id": "schema:creator"},
+            "System.ChangedDate": {"@id": "schema:dateModified", "@type": "xsd:dateTime"},
+            "System.TeamProject": {"@id": "schema:isPartOf"},
+            "System.AreaPath": {"@id": "ado:areaPath"},
+            "System.IterationPath": {"@id": "ado:iterationPath"},
+            "System.Description": {"@id": "schema:description"},
+            "System.Tags": {"@id": "schema:keywords"},
+            "Microsoft.VSTS.Common.Priority": {"@id": "schema:priority", "@type": "xsd:integer"}
+          }
+        },
+        "relations": {"@id": "schema:relatedLink", "@container": "@set"}
+      }
+    },
+
+    "Pipeline": {
+      "@id": "schema:SoftwareApplication",
+      "@context": {
+        "id": {"@id": "schema:identifier"},
+        "name": {"@id": "schema:name"},
+        "url": {"@id": "schema:url"}
+      }
+    },
+
+    "PipelineRun": {
+      "@id": "schema:Action",
+      "@context": {
+        "id": {"@id": "schema:identifier"},
+        "name": {"@id": "schema:name"},
+        "state": {"@id": "ado:runState"},
+        "result": {"@id": "ado:runResult"},
+        "createdDate": {"@id": "schema:startTime", "@type": "xsd:dateTime"},
+        "finishedDate": {"@id": "schema:endTime", "@type": "xsd:dateTime"}
+      }
+    },
+
+    "Repository": {
+      "@id": "schema:SoftwareSourceCode",
+      "@context": {
+        "id": {"@id": "schema:identifier"},
+        "name": {"@id": "schema:name"},
+        "url": {"@id": "schema:codeRepository", "@type": "@id"}
+      }
+    }
+  }
+}
