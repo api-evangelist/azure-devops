@@ -24,13 +24,13 @@ security:
   - oauth2: []
 
 tags:
-  - name: WorkItems
-    description: Work item CRUD and management
-  - name: Queries
-    description: Work item query execution
   - name: Fields
     description: Work item field definitions
 
+  - name: Queries
+    description: Work item query execution
+  - name: WorkItems
+    description: Work item CRUD and management
 paths:
   /{project}/_apis/wit/workitems/{id}:
     get:

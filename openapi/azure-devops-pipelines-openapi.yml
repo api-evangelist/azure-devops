@@ -28,9 +28,6 @@ tags:
     description: Pipeline definition management
   - name: Runs
     description: Pipeline run execution and monitoring
-  - name: Builds
-    description: Build definition and results
-
 paths:
   /{project}/_apis/pipelines:
     get:
