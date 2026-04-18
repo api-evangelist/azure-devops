@@ -12,69 +12,75 @@ info:
     url: https://learn.microsoft.com/en-us/rest/api/azure/devops/
 
 servers:
-  - url: https://dev.azure.com/{organization}
-    description: Azure DevOps Services
-    variables:
-      organization:
-        description: Azure DevOps organization name
-        default: my-org
+- url: https://dev.azure.com/{organization}
+  description: Azure DevOps Services
+  variables:
+    organization:
+      description: Azure DevOps organization name
+      default: my-org
 
 security:
-  - personalAccessToken: []
-  - oauth2: []
+- personalAccessToken: []
+- oauth2: []
 
 tags:
-  - name: Fields
-    description: Work item field definitions
+- name: Fields
+  description: Work item field definitions
 
-  - name: Queries
-    description: Work item query execution
-  - name: WorkItems
-    description: Work item CRUD and management
+- name: Queries
+  description: Work item query execution
+- name: WorkItems
+  description: Work item CRUD and management
 paths:
   /{project}/_apis/wit/workitems/{id}:
     get:
       operationId: getWorkItem
-      summary: Get work item by ID
+      summary: Get Work Item by Id
       description: >-
         Returns a single work item by its numeric ID. Supports field selection
         and expansion of related entities.
       tags: [WorkItems]
       parameters:
-        - name: organization
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: project
-          in: path
-          required: true
-          description: Project name or ID
-          schema:
-            type: string
-        - name: id
-          in: path
-          required: true
-          description: Work item ID
-          schema:
-            type: integer
-        - name: $expand
-          in: query
-          description: Expand related entities (all, fields, relations, links, none)
-          schema:
-            type: string
-            enum: [all, fields, relations, links, none]
-        - name: $select
-          in: query
-          description: Comma-separated list of fields to return
-          schema:
-            type: string
-        - name: api-version
-          in: query
-          required: true
-          schema:
-            type: string
-            default: "7.2-preview.3"
+      - name: organization
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: project
+        in: path
+        required: true
+        description: Project name or ID
+        schema:
+          type: string
+        example: example_value
+      - name: id
+        in: path
+        required: true
+        description: Work item ID
+        schema:
+          type: integer
+        example: abc123
+      - name: $expand
+        in: query
+        description: Expand related entities (all, fields, relations, links, none)
+        schema:
+          type: string
+          enum: [all, fields, relations, links, none]
+        example: all
+      - name: $select
+        in: query
+        description: Comma-separated list of fields to return
+        schema:
+          type: string
+        example: example_value
+      - name: api-version
+        in: query
+        required: true
+        schema:
+          type: string
+          default: "7.2-preview.3"
+        example: example_value
       responses:
         '200':
           description: Work item details
@@ -82,44 +88,85 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkItem'
+              examples:
+                Getworkitem200Example:
+                  summary: Default getWorkItem 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    rev: 10
+                    fields:
+                      System.Id: '500123'
+                      System.Title: example_value
+                      System.WorkItemType: example_value
+                      System.State: example_value
+                      System.Reason: example_value
+                      System.AssignedTo:
+                        displayName: example_value
+                        id: abc123
+                        uniqueName: example_value
+                      System.CreatedDate: '2026-01-15T10:30:00Z'
+                      System.CreatedBy:
+                        displayName: example_value
+                      System.ChangedDate: '2026-01-15T10:30:00Z'
+                      System.TeamProject: example_value
+                      System.AreaPath: example_value
+                      System.IterationPath: example_value
+                      System.Description: example_value
+                      System.Tags: example_value
+                      Microsoft.VSTS.Common.Priority: 10
+                      Microsoft.VSTS.Common.Severity: example_value
+                    relations:
+                    - rel: example_value
+                      url: https://www.example.com
+                      attributes: {}
+                    url: https://www.example.com
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateWorkItem
-      summary: Update work item
+      summary: Update Work Item
       description: >-
         Updates a work item using JSON Patch operations. Supports updating fields,
         adding/removing links, and attaching files.
       tags: [WorkItems]
       parameters:
-        - name: organization
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: project
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: api-version
-          in: query
-          required: true
-          schema:
-            type: string
-            default: "7.2-preview.3"
-        - name: suppressNotifications
-          in: query
-          schema:
-            type: boolean
+      - name: organization
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        example: abc123
+      - name: api-version
+        in: query
+        required: true
+        schema:
+          type: string
+          default: "7.2-preview.3"
+        example: example_value
+      - name: suppressNotifications
+        in: query
+        schema:
+          type: boolean
+        example: true
       requestBody:
         required: true
         content:
@@ -128,6 +175,15 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/JsonPatchOperation'
+            examples:
+              UpdateworkitemRequestExample:
+                summary: Default updateWorkItem request
+                x-microcks-default: true
+                value:
+                - op: add
+                  path: example_value
+                  value: example_value
+                  from: example_value
       responses:
         '200':
           description: Updated work item
@@ -136,36 +192,76 @@ paths:
               schema:
                 $ref: '#/components/schemas/WorkItem'
 
+              examples:
+                Updateworkitem200Example:
+                  summary: Default updateWorkItem 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    rev: 10
+                    fields:
+                      System.Id: '500123'
+                      System.Title: example_value
+                      System.WorkItemType: example_value
+                      System.State: example_value
+                      System.Reason: example_value
+                      System.AssignedTo:
+                        displayName: example_value
+                        id: abc123
+                        uniqueName: example_value
+                      System.CreatedDate: '2026-01-15T10:30:00Z'
+                      System.CreatedBy:
+                        displayName: example_value
+                      System.ChangedDate: '2026-01-15T10:30:00Z'
+                      System.TeamProject: example_value
+                      System.AreaPath: example_value
+                      System.IterationPath: example_value
+                      System.Description: example_value
+                      System.Tags: example_value
+                      Microsoft.VSTS.Common.Priority: 10
+                      Microsoft.VSTS.Common.Severity: example_value
+                    relations:
+                    - rel: example_value
+                      url: https://www.example.com
+                      attributes: {}
+                    url: https://www.example.com
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{project}/_apis/wit/workitems/${type}:
     post:
       operationId: createWorkItem
-      summary: Create a new work item
+      summary: Create a New Work Item
       description: >-
         Creates a new work item of the specified type. Uses JSON Patch to set field values.
       tags: [WorkItems]
       parameters:
-        - name: organization
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: project
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: type
-          in: path
-          required: true
-          description: Work item type (e.g., Bug, Task, User Story, Epic, Feature)
-          schema:
-            type: string
-        - name: api-version
-          in: query
-          required: true
-          schema:
-            type: string
-            default: "7.2-preview.3"
+      - name: organization
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: type
+        in: path
+        required: true
+        description: Work item type (e.g., Bug, Task, User Story, Epic, Feature)
+        schema:
+          type: string
+        example: example_value
+      - name: api-version
+        in: query
+        required: true
+        schema:
+          type: string
+          default: "7.2-preview.3"
+        example: example_value
       requestBody:
         required: true
         content:
@@ -178,15 +274,15 @@ paths:
               createBug:
                 summary: Create a Bug work item
                 value:
-                  - op: add
-                    path: /fields/System.Title
-                    value: "Fix login button on mobile"
-                  - op: add
-                    path: /fields/Microsoft.VSTS.TCM.ReproSteps
-                    value: "1. Open app on mobile\n2. Tap login button\n3. Nothing happens"
-                  - op: add
-                    path: /fields/System.AreaPath
-                    value: "MyProject\\Frontend"
+                - op: add
+                  path: /fields/System.Title
+                  value: "Fix login button on mobile"
+                - op: add
+                  path: /fields/Microsoft.VSTS.TCM.ReproSteps
+                  value: "1. Open app on mobile\n2. Tap login button\n3. Nothing happens"
+                - op: add
+                  path: /fields/System.AreaPath
+                  value: "MyProject\\Frontend"
       responses:
         '200':
           description: Created work item
@@ -194,42 +290,83 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkItem'
+              examples:
+                Createworkitem200Example:
+                  summary: Default createWorkItem 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    rev: 10
+                    fields:
+                      System.Id: '500123'
+                      System.Title: example_value
+                      System.WorkItemType: example_value
+                      System.State: example_value
+                      System.Reason: example_value
+                      System.AssignedTo:
+                        displayName: example_value
+                        id: abc123
+                        uniqueName: example_value
+                      System.CreatedDate: '2026-01-15T10:30:00Z'
+                      System.CreatedBy:
+                        displayName: example_value
+                      System.ChangedDate: '2026-01-15T10:30:00Z'
+                      System.TeamProject: example_value
+                      System.AreaPath: example_value
+                      System.IterationPath: example_value
+                      System.Description: example_value
+                      System.Tags: example_value
+                      Microsoft.VSTS.Common.Priority: 10
+                      Microsoft.VSTS.Common.Severity: example_value
+                    relations:
+                    - rel: example_value
+                      url: https://www.example.com
+                      attributes: {}
+                    url: https://www.example.com
         '400':
           $ref: '#/components/responses/BadRequest'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{project}/_apis/wit/workitems:
     get:
       operationId: getWorkItemsBatch
-      summary: Get work items by IDs
+      summary: Get Work Items by Ids
       description: Returns multiple work items by a list of IDs.
       tags: [WorkItems]
       parameters:
-        - name: organization
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: project
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: ids
-          in: query
-          required: true
-          description: Comma-separated list of work item IDs (max 200)
-          schema:
-            type: string
-        - name: $expand
-          in: query
-          schema:
-            type: string
-        - name: api-version
-          in: query
-          required: true
-          schema:
-            type: string
-            default: "7.2-preview.3"
+      - name: organization
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: ids
+        in: query
+        required: true
+        description: Comma-separated list of work item IDs (max 200)
+        schema:
+          type: string
+        example: example_value
+      - name: $expand
+        in: query
+        schema:
+          type: string
+        example: example_value
+      - name: api-version
+        in: query
+        required: true
+        schema:
+          type: string
+          default: "7.2-preview.3"
+        example: example_value
       responses:
         '200':
           description: List of work items
@@ -245,37 +382,73 @@ paths:
                     items:
                       $ref: '#/components/schemas/WorkItem'
 
+              examples:
+                Getworkitemsbatch200Example:
+                  summary: Default getWorkItemsBatch 200 response
+                  x-microcks-default: true
+                  value:
+                    count: 10
+                    value:
+                    - id: abc123
+                      rev: 10
+                      fields:
+                        System.Id: '500123'
+                        System.Title: example_value
+                        System.WorkItemType: example_value
+                        System.State: example_value
+                        System.Reason: example_value
+                        System.AssignedTo: {}
+                        System.CreatedDate: '2026-01-15T10:30:00Z'
+                        System.CreatedBy: {}
+                        System.ChangedDate: '2026-01-15T10:30:00Z'
+                        System.TeamProject: example_value
+                        System.AreaPath: example_value
+                        System.IterationPath: example_value
+                        System.Description: example_value
+                        System.Tags: example_value
+                        Microsoft.VSTS.Common.Priority: 10
+                        Microsoft.VSTS.Common.Severity: example_value
+                      relations:
+                      - {}
+                      url: https://www.example.com
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{project}/_apis/wit/wiql:
     post:
       operationId: queryWorkItemsByWiql
-      summary: Query work items using WIQL
+      summary: Query Work Items Using Wiql
       description: >-
         Executes a Work Item Query Language (WIQL) query to find work items
         matching the specified criteria.
       tags: [Queries]
       parameters:
-        - name: organization
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: project
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: $top
-          in: query
-          description: Maximum number of results to return
-          schema:
-            type: integer
-            maximum: 20000
-        - name: api-version
-          in: query
-          required: true
-          schema:
-            type: string
-            default: "7.2-preview.2"
+      - name: organization
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: $top
+        in: query
+        description: Maximum number of results to return
+        schema:
+          type: integer
+          maximum: 20000
+        example: 10
+      - name: api-version
+        in: query
+        required: true
+        schema:
+          type: string
+          default: "7.2-preview.2"
+        example: example_value
       requestBody:
         required: true
         content:
@@ -288,6 +461,12 @@ paths:
                   type: string
                   description: WIQL query string
                   example: "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.TeamProject] = @project AND [System.State] = 'Active' ORDER BY [System.CreatedDate] DESC"
+            examples:
+              QueryworkitemsbywiqlRequestExample:
+                summary: Default queryWorkItemsByWiql request
+                x-microcks-default: true
+                value:
+                  query: example_value
       responses:
         '200':
           description: Query results
@@ -296,29 +475,51 @@ paths:
               schema:
                 $ref: '#/components/schemas/WiqlResult'
 
+              examples:
+                Queryworkitemsbywiql200Example:
+                  summary: Default queryWorkItemsByWiql 200 response
+                  x-microcks-default: true
+                  value:
+                    queryType: flat
+                    asOf: '2026-01-15T10:30:00Z'
+                    workItems:
+                    - id: abc123
+                      url: https://www.example.com
+                    workItemRelations:
+                    - source:
+                        id: abc123
+                      target:
+                        id: abc123
+                      rel: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{project}/_apis/wit/fields:
     get:
       operationId: listWorkItemFields
-      summary: List work item fields
+      summary: List Work Item Fields
       description: Returns all work item fields defined in the project or organization.
       tags: [Fields]
       parameters:
-        - name: organization
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: project
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: api-version
-          in: query
-          required: true
-          schema:
-            type: string
-            default: "7.2-preview.3"
+      - name: organization
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: api-version
+        in: query
+        required: true
+        schema:
+          type: string
+          default: "7.2-preview.3"
+        example: example_value
       responses:
         '200':
           description: Work item fields
@@ -334,6 +535,22 @@ paths:
                     items:
                       $ref: '#/components/schemas/WorkItemField'
 
+              examples:
+                Listworkitemfields200Example:
+                  summary: Default listWorkItemFields 200 response
+                  x-microcks-default: true
+                  value:
+                    count: 10
+                    value:
+                    - name: Example Title
+                      referenceName: example_value
+                      type: string
+                      readOnly: true
+                      isQueryable: true
+                      isIdentity: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     personalAccessToken:
@@ -378,9 +595,11 @@ components:
         id:
           type: integer
           description: Work item ID
+          example: abc123
         rev:
           type: integer
           description: Revision number
+          example: 10
         fields:
           type: object
           description: Work item field values
@@ -432,23 +651,28 @@ components:
               maximum: 4
             Microsoft.VSTS.Common.Severity:
               type: string
+          example: example_value
         relations:
           type: array
           items:
             $ref: '#/components/schemas/WorkItemRelation'
+          example: []
         url:
           type: string
           format: uri
 
+          example: https://www.example.com
     WorkItemRelation:
       type: object
       properties:
         rel:
           type: string
           description: Relation type (e.g., System.LinkTypes.Hierarchy-Forward, System.LinkTypes.Related)
+          example: example_value
         url:
           type: string
           format: uri
+          example: https://www.example.com
         attributes:
           type: object
           properties:
@@ -457,6 +681,7 @@ components:
             comment:
               type: string
 
+          example: example_value
     JsonPatchOperation:
       type: object
       required: [op, path]
@@ -464,24 +689,30 @@ components:
         op:
           type: string
           enum: [add, remove, replace, copy, move, test]
+          example: add
         path:
           type: string
           description: JSON Pointer path to the field
+          example: example_value
         value:
           description: New value for add/replace operations
+          example: example_value
         from:
           type: string
           description: Source path for copy/move operations
 
+          example: example_value
     WiqlResult:
       type: object
       properties:
         queryType:
           type: string
           enum: [flat, tree, oneHop]
+          example: flat
         asOf:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         workItems:
           type: array
           items:
@@ -491,6 +722,7 @@ components:
                 type: integer
               url:
                 type: string
+          example: []
         workItemRelations:
           type: array
           items:
@@ -509,37 +741,51 @@ components:
               rel:
                 type: string
 
+          example: []
     WorkItemField:
       type: object
       properties:
         name:
           type: string
+          example: Example Title
         referenceName:
           type: string
+          example: example_value
         type:
           type: string
           enum: [string, integer, dateTime, plainText, html, treePath, boolean, double, guid]
+          example: string
         readOnly:
           type: boolean
+          example: true
         isQueryable:
           type: boolean
+          example: true
         isIdentity:
           type: boolean
 
+          example: true
     Error:
       type: object
       properties:
         id:
           type: string
+          example: abc123
         innerException:
           type: object
+          example: example_value
         message:
           type: string
+          example: example_value
         typeName:
           type: string
+          example: example_value
         typeKey:
           type: string
+          example: example_value
         errorCode:
           type: integer
+          example: 10
         eventId:
           type: integer
+          example: '500123'

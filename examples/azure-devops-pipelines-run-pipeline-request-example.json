@@ -1,0 +1,6 @@
+{
+  "resources": "example_value",
+  "variables": "example_value",
+  "templateParameters": "example_value",
+  "stagesToSkip": []
+}

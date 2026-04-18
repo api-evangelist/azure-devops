@@ -1,0 +1,7 @@
+{
+  "id": "abc123",
+  "rev": 10,
+  "fields": "example_value",
+  "relations": [],
+  "url": "https://www.example.com"
+}

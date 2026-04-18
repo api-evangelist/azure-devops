@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "WorkItem",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "rev": {
+      "type": "integer"
+    },
+    "fields": {
+      "type": "object"
+    },
+    "relations": {
+      "type": "array"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

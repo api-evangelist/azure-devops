@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "WorkItemField",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "referenceName": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "readOnly": {
+      "type": "boolean"
+    },
+    "isQueryable": {
+      "type": "boolean"
+    },
+    "isIdentity": {
+      "type": "boolean"
+    }
+  }
+}

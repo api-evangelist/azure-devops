@@ -1,0 +1,9 @@
+{
+  "id": "abc123",
+  "name": "Example Title",
+  "revision": 10,
+  "folder": "example_value",
+  "configuration": "example_value",
+  "url": "https://www.example.com",
+  "links": "example_value"
+}

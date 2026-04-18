@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Error",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "innerException": {
+      "type": "object"
+    },
+    "message": {
+      "type": "string"
+    },
+    "typeName": {
+      "type": "string"
+    },
+    "typeKey": {
+      "type": "string"
+    },
+    "errorCode": {
+      "type": "integer"
+    },
+    "eventId": {
+      "type": "integer"
+    }
+  }
+}

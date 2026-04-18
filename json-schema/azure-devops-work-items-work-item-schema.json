@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkItem",
+  "type": "object",
+  "description": "Azure DevOps work item",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Work item ID"
+    },
+    "rev": {
+      "type": "integer",
+      "description": "Revision number"
+    },
+    "fields": {
+      "type": "object",
+      "description": "Work item field values"
+    },
+    "relations": {
+      "type": "array"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

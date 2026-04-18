@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JsonPatchOperation",
+  "type": "object",
+  "properties": {
+    "op": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string",
+      "description": "JSON Pointer path to the field"
+    },
+    "value": {
+      "type": "string",
+      "description": "New value for add/replace operations"
+    },
+    "from": {
+      "type": "string",
+      "description": "Source path for copy/move operations"
+    }
+  }
+}

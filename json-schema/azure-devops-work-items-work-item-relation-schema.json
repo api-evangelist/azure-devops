@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkItemRelation",
+  "type": "object",
+  "properties": {
+    "rel": {
+      "type": "string",
+      "description": "Relation type (e.g., System.LinkTypes.Hierarchy-Forward, System.LinkTypes.Related)"
+    },
+    "url": {
+      "type": "string"
+    },
+    "attributes": {
+      "type": "object"
+    }
+  }
+}

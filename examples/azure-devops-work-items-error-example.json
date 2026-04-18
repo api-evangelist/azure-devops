@@ -1,0 +1,9 @@
+{
+  "id": "abc123",
+  "innerException": "example_value",
+  "message": "example_value",
+  "typeName": "example_value",
+  "typeKey": "example_value",
+  "errorCode": 10,
+  "eventId": "500123"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "JsonPatchOperation",
+  "type": "object",
+  "properties": {
+    "op": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "from": {
+      "type": "string"
+    }
+  }
+}

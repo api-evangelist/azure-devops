@@ -1,0 +1,358 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Azure DevOps Work Item Tracking API"
+  description: "REST endpoints for creating, updating, querying, and managing work items including bugs, tasks, user stories, epics, and features across Azure Boards."
+  tags:
+    - Azure DevOps
+    - Work Items
+    - Project Management
+    - CI/CD
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      AZURE_DEVOPS_PAT: AZURE_DEVOPS_PAT
+
+capability:
+  consumes:
+    - type: http
+      namespace: azure-devops-work-items
+      baseUri: https://dev.azure.com/{organization}
+      description: "Azure DevOps Work Item Tracking API for managing work items across Azure Boards."
+      authentication:
+        type: basic
+        username: ""
+        password: "{{AZURE_DEVOPS_PAT}}"
+      resources:
+        - name: work-items
+          path: /{project}/_apis/wit
+          description: "Work item CRUD and query operations."
+          operations:
+            - name: get-work-item
+              method: GET
+              description: "Returns a single work item by its numeric ID."
+              inputParameters:
+                - name: project
+                  in: path
+                  type: string
+                  required: true
+                  description: "Project name or ID"
+                - name: id
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Work item ID"
+                - name: $expand
+                  in: query
+                  type: string
+                  required: false
+                  description: "Expand related entities (all, fields, relations, links, none)"
+                - name: $select
+                  in: query
+                  type: string
+                  required: false
+                  description: "Comma-separated list of fields to return"
+                - name: api-version
+                  in: query
+                  type: string
+                  required: true
+                  description: "API version"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: update-work-item
+              method: PATCH
+              description: "Updates a work item using JSON Patch operations."
+              inputParameters:
+                - name: project
+                  in: path
+                  type: string
+                  required: true
+                  description: "Project name or ID"
+                - name: id
+                  in: path
+                  type: integer
+                  required: true
+                  description: "Work item ID"
+                - name: api-version
+                  in: query
+                  type: string
+                  required: true
+                  description: "API version"
+                - name: suppressNotifications
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Suppress notifications"
+              body:
+                type: json
+                data:
+                  op: "{{tools.op}}"
+                  path: "{{tools.path}}"
+                  value: "{{tools.value}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-work-item
+              method: POST
+              description: "Creates a new work item of the specified type."
+              inputParameters:
+                - name: project
+                  in: path
+                  type: string
+                  required: true
+                  description: "Project name or ID"
+                - name: type
+                  in: path
+                  type: string
+                  required: true
+                  description: "Work item type (e.g., Bug, Task, User Story)"
+                - name: api-version
+                  in: query
+                  type: string
+                  required: true
+                  description: "API version"
+              body:
+                type: json
+                data:
+                  op: "{{tools.op}}"
+                  path: "{{tools.path}}"
+                  value: "{{tools.value}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-work-items-batch
+              method: GET
+              description: "Returns multiple work items by a list of IDs."
+              inputParameters:
+                - name: project
+                  in: path
+                  type: string
+                  required: true
+                  description: "Project name or ID"
+                - name: ids
+                  in: query
+                  type: string
+                  required: true
+                  description: "Comma-separated list of work item IDs (max 200)"
+                - name: $expand
+                  in: query
+                  type: string
+                  required: false
+                  description: "Expand related entities"
+                - name: api-version
+                  in: query
+                  type: string
+                  required: true
+                  description: "API version"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: query-work-items-by-wiql
+              method: POST
+              description: "Executes a WIQL query to find work items matching criteria."
+              inputParameters:
+                - name: project
+                  in: path
+                  type: string
+                  required: true
+                  description: "Project name or ID"
+                - name: $top
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results"
+                - name: api-version
+                  in: query
+                  type: string
+                  required: true
+                  description: "API version"
+              body:
+                type: json
+                data:
+                  query: "{{tools.query}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: list-work-item-fields
+              method: GET
+              description: "Returns all work item fields defined in the project."
+              inputParameters:
+                - name: project
+                  in: path
+                  type: string
+                  required: true
+                  description: "Project name or ID"
+                - name: api-version
+                  in: query
+                  type: string
+                  required: true
+                  description: "API version"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: work-items-api
+      resources:
+        - path: /v1/work-items/{id}
+          name: work-item
+          description: "Work item by ID"
+          operations:
+            - method: GET
+              name: get-work-item
+              description: "Get a work item by ID"
+              call: "azure-devops-work-items.get-work-item"
+              with:
+                project: "rest.project"
+                id: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/work-items
+          name: work-items
+          description: "Work items batch and create"
+          operations:
+            - method: GET
+              name: get-work-items-batch
+              description: "Get multiple work items by IDs"
+              call: "azure-devops-work-items.get-work-items-batch"
+              with:
+                project: "rest.project"
+                ids: "rest.ids"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/queries
+          name: queries
+          description: "WIQL queries"
+          operations:
+            - method: POST
+              name: query-work-items
+              description: "Query work items using WIQL"
+              call: "azure-devops-work-items.query-work-items-by-wiql"
+              with:
+                project: "rest.project"
+                query: "rest.query"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/fields
+          name: fields
+          description: "Work item fields"
+          operations:
+            - method: GET
+              name: list-fields
+              description: "List work item fields"
+              call: "azure-devops-work-items.list-work-item-fields"
+              with:
+                project: "rest.project"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: work-items-mcp
+      transport: http
+      tools:
+        - name: get-work-item
+          description: "Get a work item by ID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-work-items.get-work-item"
+          with:
+            project: "tools.project"
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-work-item
+          description: "Create a new work item"
+          hints:
+            readOnly: false
+          call: "azure-devops-work-items.create-work-item"
+          with:
+            project: "tools.project"
+            type: "tools.type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: update-work-item
+          description: "Update a work item"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "azure-devops-work-items.update-work-item"
+          with:
+            project: "tools.project"
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-work-items-batch
+          description: "Get multiple work items by IDs"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-work-items.get-work-items-batch"
+          with:
+            project: "tools.project"
+            ids: "tools.ids"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: query-work-items
+          description: "Query work items using WIQL"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-work-items.query-work-items-by-wiql"
+          with:
+            project: "tools.project"
+            query: "tools.query"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-work-item-fields
+          description: "List all work item fields"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-work-items.list-work-item-fields"
+          with:
+            project: "tools.project"
+          outputParameters:
+            - type: object
+              mapping: "$."

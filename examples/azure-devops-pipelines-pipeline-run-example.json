@@ -1,0 +1,12 @@
+{
+  "id": "abc123",
+  "name": "Example Title",
+  "state": "example_value",
+  "result": "example_value",
+  "createdDate": "example_value",
+  "finishedDate": "example_value",
+  "pipeline": "example_value",
+  "resources": "example_value",
+  "variables": "example_value",
+  "url": "https://www.example.com"
+}

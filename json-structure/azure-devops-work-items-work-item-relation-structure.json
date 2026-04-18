@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "WorkItemRelation",
+  "type": "object",
+  "properties": {
+    "rel": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "attributes": {
+      "type": "object"
+    }
+  }
+}

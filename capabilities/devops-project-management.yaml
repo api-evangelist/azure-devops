@@ -1,0 +1,346 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Azure DevOps Project Management"
+  description: "Unified workflow for managing Azure DevOps projects combining work item tracking and CI/CD pipeline operations. Used by development teams, project managers, and DevOps engineers to plan work, track progress, and automate build/release processes."
+  tags:
+    - Azure DevOps
+    - Project Management
+    - CI/CD
+    - Work Items
+    - Pipelines
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      AZURE_DEVOPS_PAT: AZURE_DEVOPS_PAT
+
+capability:
+  consumes:
+    - import: azure-devops-work-items
+      location: ./shared/work-items.yaml
+    - import: azure-devops-pipelines
+      location: ./shared/pipelines.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: devops-project-mgmt-api
+      description: "Unified REST API for Azure DevOps project management combining work items and pipelines."
+      resources:
+        - path: /v1/work-items/{id}
+          name: work-item
+          description: "Individual work item operations"
+          operations:
+            - method: GET
+              name: get-work-item
+              description: "Get a work item by ID"
+              call: "azure-devops-work-items.get-work-item"
+              with:
+                project: "rest.project"
+                id: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PATCH
+              name: update-work-item
+              description: "Update a work item"
+              call: "azure-devops-work-items.update-work-item"
+              with:
+                project: "rest.project"
+                id: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/work-items
+          name: work-items
+          description: "Work item batch and creation"
+          operations:
+            - method: GET
+              name: get-work-items-batch
+              description: "Get multiple work items by IDs"
+              call: "azure-devops-work-items.get-work-items-batch"
+              with:
+                project: "rest.project"
+                ids: "rest.ids"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-work-item
+              description: "Create a new work item"
+              call: "azure-devops-work-items.create-work-item"
+              with:
+                project: "rest.project"
+                type: "rest.type"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/queries
+          name: queries
+          description: "WIQL query execution"
+          operations:
+            - method: POST
+              name: query-work-items
+              description: "Query work items using WIQL"
+              call: "azure-devops-work-items.query-work-items-by-wiql"
+              with:
+                project: "rest.project"
+                query: "rest.query"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/fields
+          name: fields
+          description: "Work item field definitions"
+          operations:
+            - method: GET
+              name: list-fields
+              description: "List work item fields"
+              call: "azure-devops-work-items.list-work-item-fields"
+              with:
+                project: "rest.project"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/pipelines
+          name: pipelines
+          description: "Pipeline definitions"
+          operations:
+            - method: GET
+              name: list-pipelines
+              description: "List all pipelines"
+              call: "azure-devops-pipelines.list-pipelines"
+              with:
+                project: "rest.project"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-pipeline
+              description: "Create a new pipeline"
+              call: "azure-devops-pipelines.create-pipeline"
+              with:
+                project: "rest.project"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/pipelines/{pipelineId}
+          name: pipeline
+          description: "Single pipeline"
+          operations:
+            - method: GET
+              name: get-pipeline
+              description: "Get a pipeline by ID"
+              call: "azure-devops-pipelines.get-pipeline"
+              with:
+                project: "rest.project"
+                pipelineId: "rest.pipelineId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/pipelines/{pipelineId}/runs
+          name: pipeline-runs
+          description: "Pipeline runs"
+          operations:
+            - method: GET
+              name: list-pipeline-runs
+              description: "List pipeline runs"
+              call: "azure-devops-pipelines.list-pipeline-runs"
+              with:
+                project: "rest.project"
+                pipelineId: "rest.pipelineId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: run-pipeline
+              description: "Trigger a pipeline run"
+              call: "azure-devops-pipelines.run-pipeline"
+              with:
+                project: "rest.project"
+                pipelineId: "rest.pipelineId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/pipelines/{pipelineId}/runs/{runId}
+          name: pipeline-run
+          description: "Single pipeline run"
+          operations:
+            - method: GET
+              name: get-pipeline-run
+              description: "Get a pipeline run"
+              call: "azure-devops-pipelines.get-pipeline-run"
+              with:
+                project: "rest.project"
+                pipelineId: "rest.pipelineId"
+                runId: "rest.runId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: devops-project-mgmt-mcp
+      transport: http
+      description: "MCP server for AI-assisted Azure DevOps project management."
+      tools:
+        - name: get-work-item
+          description: "Get a work item by ID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-work-items.get-work-item"
+          with:
+            project: "tools.project"
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-work-item
+          description: "Create a new work item"
+          hints:
+            readOnly: false
+          call: "azure-devops-work-items.create-work-item"
+          with:
+            project: "tools.project"
+            type: "tools.type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: update-work-item
+          description: "Update a work item"
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "azure-devops-work-items.update-work-item"
+          with:
+            project: "tools.project"
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-work-items-batch
+          description: "Get multiple work items by IDs"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-work-items.get-work-items-batch"
+          with:
+            project: "tools.project"
+            ids: "tools.ids"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: query-work-items
+          description: "Query work items using WIQL"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-work-items.query-work-items-by-wiql"
+          with:
+            project: "tools.project"
+            query: "tools.query"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-work-item-fields
+          description: "List all work item field definitions"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-work-items.list-work-item-fields"
+          with:
+            project: "tools.project"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-pipelines
+          description: "List all pipelines in a project"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-pipelines.list-pipelines"
+          with:
+            project: "tools.project"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-pipeline
+          description: "Get a pipeline by ID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-pipelines.get-pipeline"
+          with:
+            project: "tools.project"
+            pipelineId: "tools.pipelineId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-pipeline
+          description: "Create a new pipeline"
+          hints:
+            readOnly: false
+          call: "azure-devops-pipelines.create-pipeline"
+          with:
+            project: "tools.project"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: run-pipeline
+          description: "Trigger a pipeline run"
+          hints:
+            readOnly: false
+          call: "azure-devops-pipelines.run-pipeline"
+          with:
+            project: "tools.project"
+            pipelineId: "tools.pipelineId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-pipeline-runs
+          description: "List runs for a pipeline"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-pipelines.list-pipeline-runs"
+          with:
+            project: "tools.project"
+            pipelineId: "tools.pipelineId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-pipeline-run
+          description: "Get details of a pipeline run"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "azure-devops-pipelines.get-pipeline-run"
+          with:
+            project: "tools.project"
+            pipelineId: "tools.pipelineId"
+            runId: "tools.runId"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "RunPipelineRequest",
+  "type": "object",
+  "properties": {
+    "resources": {
+      "type": "object"
+    },
+    "variables": {
+      "type": "object"
+    },
+    "templateParameters": {
+      "type": "object"
+    },
+    "stagesToSkip": {
+      "type": "array"
+    }
+  }
+}

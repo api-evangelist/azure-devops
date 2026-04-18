@@ -1,0 +1,8 @@
+{
+  "name": "Example Title",
+  "referenceName": "example_value",
+  "type": "example_value",
+  "readOnly": true,
+  "isQueryable": true,
+  "isIdentity": true
+}
