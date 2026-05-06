@@ -4,174 +4,215 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Azure DevOps
 providerId: azure-devops
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Azure
-  - CI/CD
   - DevOps
+  - CI/CD
+  - Source Control
+  - Boards
   - Pipelines
-  - Work Items
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Repos
+  - Test Plans
+  - Artifacts
+description: Azure DevOps Services prices three components - user access, parallel jobs (CI/CD), and
+  Artifacts storage. User access has a Stakeholder free tier, the first 5 Basic users free, and Basic
+  + Test Plans paid only. Pipelines parallel jobs are sold separately for Microsoft-hosted and self-hosted
+  agents. Visual Studio subscribers and GitHub Enterprise users are auto-detected and not double-billed.
+sources:
+  - https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+  - https://learn.microsoft.com/en-us/azure/devops/organizations/billing/buy-basic-access-add-users
 plans:
-  - id: azure-devops-free
-    name: Free
+  - id: azure-devops-stakeholder
+    name: Stakeholder
     type: freemium
-    description: Free entry tier for the Azure DevOps API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: Free, unlimited stakeholder access. Limited functionality (work items, basic boards
+      access, no code/build/release).
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
+      - label: Stakeholder seats
+        name: stakeholder
+        type: subscription
+        metric: seat
+        limit: -1
         timeFrame: month
         geo: global
-        domains:
-          - https://dev.azure.com/{organization}
-          - https://pkgs.dev.azure.com/{organization}
-          - https://vsrm.dev.azure.com/{organization}
+        unit: 1
+        price: '0.00'
+        userMultiplied: true
+    elements:
+      - name: Work item access (limited)
+      - name: View-only dashboards
+      - name: Approve releases
+  - id: azure-devops-basic
+    name: Basic
+    type: subscription
+    description: Standard developer access - Boards, Repos, Pipelines, Artifacts (limited). First 5
+      users free, $6 per user/month thereafter.
+    entries:
+      - label: First 5 Basic users
+        name: basic_free
+        type: quota
+        metric: seat
+        limit: 5
+        timeFrame: month
+        geo: global
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
+      - label: Basic user (6+)
+        name: basic_paid
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
         geo: global
-        domains:
-          - https://dev.azure.com/{organization}
-          - https://pkgs.dev.azure.com/{organization}
-          - https://vsrm.dev.azure.com/{organization}
+        unit: 1
+        price: '6.00'
+        userMultiplied: true
+    elements:
+      - name: Azure Boards
+      - name: Azure Repos (Git/TFVC)
+      - name: Azure Pipelines (subject to parallel-job limits)
+      - name: Azure Artifacts (2 GB free)
+  - id: azure-devops-basic-test-plans
+    name: Basic + Test Plans
+    type: subscription
+    description: Adds Azure Test Plans for manual/exploratory testing. $52 per user/month. 30-day free
+      trial.
+    entries:
+      - label: Basic + Test Plans user
+        name: basic_test_plans
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '52.00'
+        userMultiplied: true
+    elements:
+      - name: Everything in Basic
+      - name: Azure Test Plans (manual, exploratory, planned testing)
+      - name: 30-day free trial
+  - id: azure-devops-pipelines-microsoft-hosted
+    name: Pipelines - Microsoft-Hosted CI/CD
+    type: usage-based
+    description: 1 free Microsoft-hosted parallel job (1,800 minutes/month) for public projects (unlimited)
+      and private projects. Additional parallel jobs $40/month each.
+    entries:
+      - label: Free Microsoft-hosted parallel job
+        name: hosted_free
+        type: quota
+        metric: parallel_job
+        limit: 1
+        timeFrame: month
+        geo: global
         unit: 1
         price: '0.00'
+        userMultiplied: false
+      - label: Additional Microsoft-hosted parallel job
+        name: hosted_paid
+        type: subscription
+        metric: parallel_job
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '40.00'
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Azure DevOps Work Item Tracking API
-      - name: Azure DevOps Git Repositories API
-      - name: Azure DevOps Pipelines API
-      - name: Azure DevOps Artifacts API
-      - name: Azure DevOps Test Plans API
-      - name: Azure DevOps Release API
-  - id: azure-devops-pro
-    name: Professional
-    type: paid
-    description: Production tier for Azure DevOps. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+      - name: Microsoft-managed agents
+      - name: Windows / Linux / macOS images
+      - name: 1,800 free minutes/month per parallel job
+  - id: azure-devops-pipelines-self-hosted
+    name: Pipelines - Self-Hosted CI/CD
+    type: usage-based
+    description: 1 free self-hosted parallel job and unlimited minutes. Additional parallel jobs $15/month
+      each.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: Free self-hosted parallel job
+        name: self_hosted_free
         type: quota
-        metric: requests
-        limit: 100000
+        metric: parallel_job
+        limit: 1
         timeFrame: month
         geo: global
-        domains:
-          - https://dev.azure.com/{organization}
-          - https://pkgs.dev.azure.com/{organization}
-          - https://vsrm.dev.azure.com/{organization}
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://dev.azure.com/{organization}
-          - https://pkgs.dev.azure.com/{organization}
-          - https://vsrm.dev.azure.com/{organization}
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Additional self-hosted parallel job
+        name: self_hosted_paid
+        type: subscription
+        metric: parallel_job
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '15.00'
+        userMultiplied: false
+    elements:
+      - name: Customer-managed agents (on-prem or in-cloud)
+      - name: Unlimited build minutes per job
+  - id: azure-devops-artifacts
+    name: Azure Artifacts
+    type: usage-based
+    description: First 2 GB storage free per organization. Additional storage tiered. NuGet, npm, Maven,
+      Python, and Universal feeds.
+    entries:
+      - label: First 2 GB
+        name: artifacts_free
+        type: quota
+        metric: GB
+        limit: 2
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: 2-10 GB
+        name: artifacts_t1
         type: metered
-        metric: requests
+        metric: GB
         limit: -1
         timeFrame: month
         geo: global
-        domains:
-          - https://dev.azure.com/{organization}
-          - https://pkgs.dev.azure.com/{organization}
-          - https://vsrm.dev.azure.com/{organization}
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: '2.00'
         userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Azure DevOps Work Item Tracking API
-      - name: Azure DevOps Git Repositories API
-      - name: Azure DevOps Pipelines API
-      - name: Azure DevOps Artifacts API
-      - name: Azure DevOps Test Plans API
-      - name: Azure DevOps Release API
-  - id: azure-devops-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Azure DevOps. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: 10-100 GB
+        name: artifacts_t2
+        type: metered
+        metric: GB
         limit: -1
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://dev.azure.com/{organization}
-          - https://pkgs.dev.azure.com/{organization}
-          - https://vsrm.dev.azure.com/{organization}
+        geo: global
         unit: 1
-        price: custom
+        price: '1.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://dev.azure.com/{organization}
-          - https://pkgs.dev.azure.com/{organization}
-          - https://vsrm.dev.azure.com/{organization}
+      - label: 100-1000 GB
+        name: artifacts_t3
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: global
         unit: 1
-        price: custom
+        price: '0.50'
+        userMultiplied: false
+      - label: 1000+ GB
+        name: artifacts_t4
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.25'
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Azure DevOps Work Item Tracking API
-      - name: Azure DevOps Git Repositories API
-      - name: Azure DevOps Pipelines API
-      - name: Azure DevOps Artifacts API
-      - name: Azure DevOps Test Plans API
-      - name: Azure DevOps Release API
+      - name: NuGet, npm, Maven, Python, Universal package feeds
+      - name: Upstream sources
+      - name: Per-org tiered pricing
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

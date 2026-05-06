@@ -4,111 +4,74 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Azure DevOps
 providerId: azure-devops
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Azure
-  - CI/CD
   - DevOps
-  - Pipelines
-  - Work Items
+  - CI/CD
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Azure DevOps API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+description: Azure DevOps Services enforces a global consumption limit measured in Azure DevOps Throughput
+  Units (TSTUs) - an abstract unit blending database (Azure SQL DTUs), compute, and storage cost. The
+  limit is 200 TSTUs in any sliding five-minute window per user (or pipeline). Normal user activity generates
+  fewer than 10 TSTUs per five minutes; bursts can reach 100. Throttled requests are first delayed (response
+  still returns HTTP 200) and ultimately blocked with HTTP 429.
+sources:
+  - https://learn.microsoft.com/en-us/azure/devops/integrate/concepts/rate-limits
+  - https://learn.microsoft.com/en-us/azure/devops/integrate/concepts/integration-bestpractices
 headers:
+  retryAfter: Retry-After
+  resource: X-RateLimit-Resource
+  delay: X-RateLimit-Delay
   limit: X-RateLimit-Limit
   remaining: X-RateLimit-Remaining
   reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  cost: X-RateLimit-Cost
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
+  - name: Per-user TSTU consumption
+    scope: user
+    metric: TSTU_per_5min
+    limit: 200
+    timeFrame: minute
+    notes: Sliding 5-minute window. Delays start before block; block returns 429.
+  - name: Per-pipeline TSTU consumption
+    scope: pipeline
+    metric: TSTU_per_5min
+    limit: 200
+    timeFrame: minute
+    notes: Each pipeline tracked independently; matches user limit.
+  - name: Typical user usage
+    scope: user
+    metric: TSTU_per_5min
     limit: 10
-    burst: 20
     timeFrame: minute
-    applies:
-      - Azure DevOps Work Item Tracking API
-      - Azure DevOps Git Repositories API
-      - Azure DevOps Pipelines API
-      - Azure DevOps Artifacts API
-      - Azure DevOps Test Plans API
-      - Azure DevOps Release API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Azure DevOps Work Item Tracking API
-      - Azure DevOps Git Repositories API
-      - Azure DevOps Pipelines API
-      - Azure DevOps Artifacts API
-      - Azure DevOps Test Plans API
-      - Azure DevOps Release API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
+    notes: Reference baseline; not a hard cap.
+  - name: Burst usage
+    scope: user
+    metric: TSTU_per_5min
     limit: 100
-    burst: 200
     timeFrame: minute
-    applies:
-      - Azure DevOps Work Item Tracking API
-      - Azure DevOps Git Repositories API
-      - Azure DevOps Pipelines API
-      - Azure DevOps Artifacts API
-      - Azure DevOps Test Plans API
-      - Azure DevOps Release API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Azure DevOps Work Item Tracking API
-      - Azure DevOps Git Repositories API
-      - Azure DevOps Pipelines API
-      - Azure DevOps Artifacts API
-      - Azure DevOps Test Plans API
-      - Azure DevOps Release API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Azure DevOps Work Item Tracking API
-      - Azure DevOps Git Repositories API
-      - Azure DevOps Pipelines API
-      - Azure DevOps Artifacts API
-      - Azure DevOps Test Plans API
-      - Azure DevOps Release API
+    notes: Reference burst threshold; sustained spikes above 200 are throttled.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Honor Retry-After
+    description: When delays are imposed, response includes Retry-After. Wait before sending the next
+      request. HTTP 200 is still returned during delay phase.
+  - name: Backoff for 429
+    description: When blocked (HTTP 429), apply exponential backoff. Retry-After indicates seconds to
+      wait.
+  - name: Monitor X-RateLimit headers
+    description: Track X-RateLimit-Remaining and X-RateLimit-Limit to proactively slow down before delays
+      begin.
+  - name: Raise via Basic + Test Plans
+    description: Identities used by tools/integrations can get higher rate limits by being assigned the
+      Basic + Test Plans access level.
+  - name: Per-namespace tracking
+    description: Limits are tracked per shared resource; X-RateLimit-Resource indicates which threshold
+      was reached.
+  - name: Wiki, repo, work tracking limits
+    description: Separate limits exist for Wiki files (25 MB), repo size, work items, queries, dashboards
+      - see service-specific docs.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

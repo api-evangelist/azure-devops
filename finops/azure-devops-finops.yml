@@ -1,188 +1,96 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Azure DevOps
+providerId: azure-devops
+created: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - DevOps
+  - CI/CD
+  - FinOps
+  - FOCUS
+description: 'FOCUS-aligned FinOps for Azure DevOps Services: per-user-per-month subscription pricing
+  for Basic and Basic + Test Plans, separate parallel-job pricing for CI/CD, and tiered storage pricing
+  for Azure Artifacts. Billed via the Azure subscription tied to the organization.'
+sources:
+  - https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+  - https://learn.microsoft.com/en-us/azure/devops/organizations/billing/buy-basic-access-add-users
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-provider: Azure DevOps
-providerId: azure-devops
-publisherName: Azure DevOps
-serviceCategory: API
-created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - Azure
-  - CI/CD
-  - DevOps
-  - Pipelines
-  - Work Items
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the Azure DevOps API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+publisherName: Microsoft Corporation
+serviceCategory: Developer Tools
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Tiered Subscription
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
-    - Usage
     - Purchase
+    - Usage
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
   ServiceName: Azure DevOps
-  ServiceCategory: Developer Tools / API
-  ProviderName: Azure DevOps
-  PublisherName: Azure DevOps
-  InvoiceIssuerName: Azure DevOps
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceCategory: Developer Tools
+  ProviderName: Microsoft
+  PublisherName: Microsoft Corporation
+  InvoiceIssuerName: Microsoft Corporation
+  PricingCategory: Subscription
   BillingCurrency: USD
-  ChargeCategory: Usage
+  ChargeCategory: Purchase
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
-    aggregation: sum
+  - name: licensed_users
+    description: Per-user-month for Basic and Basic + Test Plans access levels
+    unit: seat
+    aggregation: max
     dimensions:
-      - api
-      - endpoint
+      - access_level
+      - organization
+  - name: parallel_jobs_hosted
+    description: Microsoft-hosted CI/CD parallel jobs above the free job
+    unit: parallel_job
+    aggregation: max
+    dimensions:
+      - organization
+  - name: parallel_jobs_self_hosted
+    description: Self-hosted CI/CD parallel jobs above the free job
+    unit: parallel_job
+    aggregation: max
+    dimensions:
+      - organization
+  - name: artifacts_storage
+    description: Azure Artifacts package feed storage above 2 GB free
+    unit: GB-month
+    aggregation: avg
+    dimensions:
+      - organization
       - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+  - name: hosted_pipeline_minutes
+    description: Build minute consumption on Microsoft-hosted agents
+    unit: minute
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Azure DevOps Work Item Tracking API
-    baseURL: https://dev.azure.com/{organization}
-    tags:
-      - Azure
-      - CI/CD
-      - DevOps
-      - Project Management
-      - Work Items
-    serviceName: Azure DevOps Work Item Tracking API
-    serviceCategory: API
-  - name: Azure DevOps Git Repositories API
-    baseURL: https://dev.azure.com/{organization}
-    tags:
-      - Azure
-      - CI/CD
-      - DevOps
-      - Git
-      - Pull Requests
-      - Version Control
-    serviceName: Azure DevOps Git Repositories API
-    serviceCategory: API
-  - name: Azure DevOps Pipelines API
-    baseURL: https://dev.azure.com/{organization}
-    tags:
-      - Azure
-      - Build
-      - CI/CD
-      - DevOps
-      - Pipelines
-      - Release
-    serviceName: Azure DevOps Pipelines API
-    serviceCategory: API
-  - name: Azure DevOps Artifacts API
-    baseURL: https://pkgs.dev.azure.com/{organization}
-    tags:
-      - Artifacts
-      - Azure
-      - CI/CD
-      - DevOps
-      - Npm
-      - NuGet
-      - Package Management
-    serviceName: Azure DevOps Artifacts API
-    serviceCategory: API
-  - name: Azure DevOps Test Plans API
-    baseURL: https://dev.azure.com/{organization}
-    tags:
-      - Azure
-      - CI/CD
-      - DevOps
-      - Test Plans
-      - Testing
-    serviceName: Azure DevOps Test Plans API
-    serviceCategory: API
-  - name: Azure DevOps Release API
-    baseURL: https://vsrm.dev.azure.com/{organization}
-    tags:
-      - Azure
-      - CI/CD
-      - Deployment
-      - DevOps
-      - Release Management
-    serviceName: Azure DevOps Release API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - pipeline
+      - organization
+principles:
+  - name: Visibility
+    description: Use Organization Settings -> Billing and Usage to see paid users, parallel jobs, Artifacts
+      storage, and pipeline-minute consumption; export to Azure Cost Management.
+  - name: Allocation
+    description: Tag projects and pipelines; map organization billing to Azure subscription / cost center;
+      use multi-organization billing to dedupe per-user costs across orgs.
+  - name: Optimization
+    description: Reclaim Stakeholder seats from inactive Basic users (sort by Last Access); auto-detect
+      Visual Studio subscribers; consolidate Microsoft-hosted parallel jobs vs self-hosted based on workload
+      mix.
+  - name: Accountability
+    description: Assign Project Collection Administrators as billing owners; review Artifacts storage
+      growth and pipeline TSTU consumption monthly to avoid throttling.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
