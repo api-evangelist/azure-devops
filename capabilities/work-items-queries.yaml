@@ -1,0 +1,104 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Azure DevOps Work Item Tracking API — Queries
+  description: 'Azure DevOps Work Item Tracking API — Queries. 1 operations. Lead operation: Query Work Items Using Wiql.
+    Self-contained Naftiko capability covering one Azure Devops business surface.'
+  tags:
+  - Azure Devops
+  - Queries
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AZURE_DEVOPS_API_KEY: AZURE_DEVOPS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: work-items-queries
+    baseUri: https://dev.azure.com/{organization}
+    description: Azure DevOps Work Item Tracking API — Queries business capability. Self-contained, no shared references.
+    resources:
+    - name: project-_apis-wit-wiql
+      path: /{project}/_apis/wit/wiql
+      operations:
+      - name: queryworkitemsbywiql
+        method: POST
+        description: Query Work Items Using Wiql
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization
+          in: path
+          type: string
+          required: true
+        - name: project
+          in: path
+          type: string
+          required: true
+        - name: $top
+          in: query
+          type: integer
+          description: Maximum number of results to return
+        - name: api-version
+          in: query
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AZURE_DEVOPS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: work-items-queries-rest
+    port: 8080
+    description: REST adapter for Azure DevOps Work Item Tracking API — Queries. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/{project}/apis/wit/wiql
+      name: project-apis-wit-wiql
+      description: REST surface for project-_apis-wit-wiql.
+      operations:
+      - method: POST
+        name: queryworkitemsbywiql
+        description: Query Work Items Using Wiql
+        call: work-items-queries.queryworkitemsbywiql
+        with:
+          organization: rest.organization
+          project: rest.project
+          $top: rest.$top
+          api-version: rest.api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: work-items-queries-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Azure DevOps Work Item Tracking API — Queries. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: query-work-items-using-wiql
+      description: Query Work Items Using Wiql
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: work-items-queries.queryworkitemsbywiql
+      with:
+        organization: tools.organization
+        project: tools.project
+        $top: tools.$top
+        api-version: tools.api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

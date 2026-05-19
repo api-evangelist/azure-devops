@@ -1,0 +1,91 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Azure DevOps Work Item Tracking API — Fields
+  description: 'Azure DevOps Work Item Tracking API — Fields. 1 operations. Lead operation: List Work Item Fields. Self-contained
+    Naftiko capability covering one Azure Devops business surface.'
+  tags:
+  - Azure Devops
+  - Fields
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AZURE_DEVOPS_API_KEY: AZURE_DEVOPS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: work-items-fields
+    baseUri: https://dev.azure.com/{organization}
+    description: Azure DevOps Work Item Tracking API — Fields business capability. Self-contained, no shared references.
+    resources:
+    - name: project-_apis-wit-fields
+      path: /{project}/_apis/wit/fields
+      operations:
+      - name: listworkitemfields
+        method: GET
+        description: List Work Item Fields
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization
+          in: path
+          type: string
+          required: true
+        - name: project
+          in: path
+          type: string
+          required: true
+        - name: api-version
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AZURE_DEVOPS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: work-items-fields-rest
+    port: 8080
+    description: REST adapter for Azure DevOps Work Item Tracking API — Fields. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/{project}/apis/wit/fields
+      name: project-apis-wit-fields
+      description: REST surface for project-_apis-wit-fields.
+      operations:
+      - method: GET
+        name: listworkitemfields
+        description: List Work Item Fields
+        call: work-items-fields.listworkitemfields
+        with:
+          organization: rest.organization
+          project: rest.project
+          api-version: rest.api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: work-items-fields-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Azure DevOps Work Item Tracking API — Fields. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-work-item-fields
+      description: List Work Item Fields
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: work-items-fields.listworkitemfields
+      with:
+        organization: tools.organization
+        project: tools.project
+        api-version: tools.api-version
+      outputParameters:
+      - type: object
+        mapping: $.

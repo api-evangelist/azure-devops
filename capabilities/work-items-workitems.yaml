@@ -1,0 +1,307 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Azure DevOps Work Item Tracking API — WorkItems
+  description: 'Azure DevOps Work Item Tracking API — WorkItems. 4 operations. Lead operation: Get Work Items by Ids. Self-contained
+    Naftiko capability covering one Azure Devops business surface.'
+  tags:
+  - Azure Devops
+  - WorkItems
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AZURE_DEVOPS_API_KEY: AZURE_DEVOPS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: work-items-workitems
+    baseUri: https://dev.azure.com/{organization}
+    description: Azure DevOps Work Item Tracking API — WorkItems business capability. Self-contained, no shared references.
+    resources:
+    - name: project-_apis-wit-workitems
+      path: /{project}/_apis/wit/workitems
+      operations:
+      - name: getworkitemsbatch
+        method: GET
+        description: Get Work Items by Ids
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization
+          in: path
+          type: string
+          required: true
+        - name: project
+          in: path
+          type: string
+          required: true
+        - name: ids
+          in: query
+          type: string
+          description: Comma-separated list of work item IDs (max 200)
+          required: true
+        - name: $expand
+          in: query
+          type: string
+        - name: api-version
+          in: query
+          type: string
+          required: true
+    - name: project-_apis-wit-workitems-${type}
+      path: /{project}/_apis/wit/workitems/${type}
+      operations:
+      - name: createworkitem
+        method: POST
+        description: Create a New Work Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization
+          in: path
+          type: string
+          required: true
+        - name: project
+          in: path
+          type: string
+          required: true
+        - name: type
+          in: path
+          type: string
+          description: Work item type (e.g., Bug, Task, User Story, Epic, Feature)
+          required: true
+        - name: api-version
+          in: query
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: project-_apis-wit-workitems-id
+      path: /{project}/_apis/wit/workitems/{id}
+      operations:
+      - name: getworkitem
+        method: GET
+        description: Get Work Item by Id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization
+          in: path
+          type: string
+          required: true
+        - name: project
+          in: path
+          type: string
+          description: Project name or ID
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: Work item ID
+          required: true
+        - name: $expand
+          in: query
+          type: string
+          description: Expand related entities (all, fields, relations, links, none)
+        - name: $select
+          in: query
+          type: string
+          description: Comma-separated list of fields to return
+        - name: api-version
+          in: query
+          type: string
+          required: true
+      - name: updateworkitem
+        method: PATCH
+        description: Update Work Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization
+          in: path
+          type: string
+          required: true
+        - name: project
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: integer
+          required: true
+        - name: api-version
+          in: query
+          type: string
+          required: true
+        - name: suppressNotifications
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AZURE_DEVOPS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: work-items-workitems-rest
+    port: 8080
+    description: REST adapter for Azure DevOps Work Item Tracking API — WorkItems. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/{project}/apis/wit/workitems
+      name: project-apis-wit-workitems
+      description: REST surface for project-_apis-wit-workitems.
+      operations:
+      - method: GET
+        name: getworkitemsbatch
+        description: Get Work Items by Ids
+        call: work-items-workitems.getworkitemsbatch
+        with:
+          organization: rest.organization
+          project: rest.project
+          ids: rest.ids
+          $expand: rest.$expand
+          api-version: rest.api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{project}/apis/wit/workitems/type
+      name: project-apis-wit-workitems-type
+      description: REST surface for project-_apis-wit-workitems-${type}.
+      operations:
+      - method: POST
+        name: createworkitem
+        description: Create a New Work Item
+        call: work-items-workitems.createworkitem
+        with:
+          organization: rest.organization
+          project: rest.project
+          type: rest.type
+          api-version: rest.api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{project}/apis/wit/workitems/{id}
+      name: project-apis-wit-workitems-id
+      description: REST surface for project-_apis-wit-workitems-id.
+      operations:
+      - method: GET
+        name: getworkitem
+        description: Get Work Item by Id
+        call: work-items-workitems.getworkitem
+        with:
+          organization: rest.organization
+          project: rest.project
+          id: rest.id
+          $expand: rest.$expand
+          $select: rest.$select
+          api-version: rest.api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateworkitem
+        description: Update Work Item
+        call: work-items-workitems.updateworkitem
+        with:
+          organization: rest.organization
+          project: rest.project
+          id: rest.id
+          api-version: rest.api-version
+          suppressNotifications: rest.suppressNotifications
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: work-items-workitems-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Azure DevOps Work Item Tracking API — WorkItems. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-work-items-ids
+      description: Get Work Items by Ids
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: work-items-workitems.getworkitemsbatch
+      with:
+        organization: tools.organization
+        project: tools.project
+        ids: tools.ids
+        $expand: tools.$expand
+        api-version: tools.api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-work-item
+      description: Create a New Work Item
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: work-items-workitems.createworkitem
+      with:
+        organization: tools.organization
+        project: tools.project
+        type: tools.type
+        api-version: tools.api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-work-item-id
+      description: Get Work Item by Id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: work-items-workitems.getworkitem
+      with:
+        organization: tools.organization
+        project: tools.project
+        id: tools.id
+        $expand: tools.$expand
+        $select: tools.$select
+        api-version: tools.api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-work-item
+      description: Update Work Item
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: work-items-workitems.updateworkitem
+      with:
+        organization: tools.organization
+        project: tools.project
+        id: tools.id
+        api-version: tools.api-version
+        suppressNotifications: tools.suppressNotifications
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

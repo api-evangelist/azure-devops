@@ -1,0 +1,218 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Azure DevOps Pipelines API — Pipelines
+  description: 'Azure DevOps Pipelines API — Pipelines. 3 operations. Lead operation: List Pipelines. Self-contained Naftiko
+    capability covering one Azure Devops business surface.'
+  tags:
+  - Azure Devops
+  - Pipelines
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AZURE_DEVOPS_API_KEY: AZURE_DEVOPS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: pipelines-pipelines
+    baseUri: https://dev.azure.com/{organization}
+    description: Azure DevOps Pipelines API — Pipelines business capability. Self-contained, no shared references.
+    resources:
+    - name: project-_apis-pipelines
+      path: /{project}/_apis/pipelines
+      operations:
+      - name: listpipelines
+        method: GET
+        description: List Pipelines
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization
+          in: path
+          type: string
+          required: true
+        - name: project
+          in: path
+          type: string
+          required: true
+        - name: $orderBy
+          in: query
+          type: string
+        - name: $top
+          in: query
+          type: integer
+        - name: continuationToken
+          in: query
+          type: string
+        - name: api-version
+          in: query
+          type: string
+          required: true
+      - name: createpipeline
+        method: POST
+        description: Create a Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization
+          in: path
+          type: string
+          required: true
+        - name: project
+          in: path
+          type: string
+          required: true
+        - name: api-version
+          in: query
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: project-_apis-pipelines-pipelineId
+      path: /{project}/_apis/pipelines/{pipelineId}
+      operations:
+      - name: getpipeline
+        method: GET
+        description: Get Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization
+          in: path
+          type: string
+          required: true
+        - name: project
+          in: path
+          type: string
+          required: true
+        - name: pipelineId
+          in: path
+          type: integer
+          required: true
+        - name: api-version
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AZURE_DEVOPS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: pipelines-pipelines-rest
+    port: 8080
+    description: REST adapter for Azure DevOps Pipelines API — Pipelines. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/{project}/apis/pipelines
+      name: project-apis-pipelines
+      description: REST surface for project-_apis-pipelines.
+      operations:
+      - method: GET
+        name: listpipelines
+        description: List Pipelines
+        call: pipelines-pipelines.listpipelines
+        with:
+          organization: rest.organization
+          project: rest.project
+          $orderBy: rest.$orderBy
+          $top: rest.$top
+          continuationToken: rest.continuationToken
+          api-version: rest.api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpipeline
+        description: Create a Pipeline
+        call: pipelines-pipelines.createpipeline
+        with:
+          organization: rest.organization
+          project: rest.project
+          api-version: rest.api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{project}/apis/pipelines/{pipelineid}
+      name: project-apis-pipelines-pipelineid
+      description: REST surface for project-_apis-pipelines-pipelineId.
+      operations:
+      - method: GET
+        name: getpipeline
+        description: Get Pipeline
+        call: pipelines-pipelines.getpipeline
+        with:
+          organization: rest.organization
+          project: rest.project
+          pipelineId: rest.pipelineId
+          api-version: rest.api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: pipelines-pipelines-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Azure DevOps Pipelines API — Pipelines. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-pipelines
+      description: List Pipelines
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pipelines-pipelines.listpipelines
+      with:
+        organization: tools.organization
+        project: tools.project
+        $orderBy: tools.$orderBy
+        $top: tools.$top
+        continuationToken: tools.continuationToken
+        api-version: tools.api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-pipeline
+      description: Create a Pipeline
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: pipelines-pipelines.createpipeline
+      with:
+        organization: tools.organization
+        project: tools.project
+        api-version: tools.api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-pipeline
+      description: Get Pipeline
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: pipelines-pipelines.getpipeline
+      with:
+        organization: tools.organization
+        project: tools.project
+        pipelineId: tools.pipelineId
+        api-version: tools.api-version
+      outputParameters:
+      - type: object
+        mapping: $.
