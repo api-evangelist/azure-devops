@@ -1,0 +1,1236 @@
+{
+  "item": [
+    {
+      "id": "a5ae1092-b5a7-42a5-987f-1028d85cbb1a",
+      "name": "Fields",
+      "description": {
+        "content": "Work item field definitions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "15dc06f4-c8a4-4ca1-a62d-1d466b75ced7",
+          "name": "List Work Item Fields",
+          "request": {
+            "name": "List Work Item Fields",
+            "description": {
+              "content": "Returns all work item fields defined in the project or organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "wit",
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.3",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f848b29b-373b-41fd-99f3-0ab026749cc6",
+              "name": "Work item fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 10,\n  \"value\": [\n    {\n      \"name\": \"Example Title\",\n      \"referenceName\": \"example_value\",\n      \"type\": \"string\",\n      \"readOnly\": true,\n      \"isQueryable\": true,\n      \"isIdentity\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "add326ce-82fe-4ce8-b052-4e7edc308267",
+      "name": "Queries",
+      "description": {
+        "content": "Work item query execution",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ea46bf84-f964-43f1-95d0-c26c86d20362",
+          "name": "Query Work Items Using Wiql",
+          "request": {
+            "name": "Query Work Items Using Wiql",
+            "description": {
+              "content": "Executes a Work Item Query Language (WIQL) query to find work items matching the specified criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "wit",
+                "wiql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$top",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.2",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6322b694-72e0-4108-8acd-a759e9423720",
+              "name": "Query results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "wiql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$top",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"queryType\": \"flat\",\n  \"asOf\": \"2026-01-15T10:30:00Z\",\n  \"workItems\": [\n    {\n      \"id\": \"abc123\",\n      \"url\": \"https://www.example.com\"\n    }\n  ],\n  \"workItemRelations\": [\n    {\n      \"source\": {\n        \"id\": \"abc123\"\n      },\n      \"target\": {\n        \"id\": \"abc123\"\n      },\n      \"rel\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2f72383e-a475-407e-902a-2f3b4e4b328c",
+      "name": "WorkItems",
+      "description": {
+        "content": "Work item CRUD and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1700760f-9dd1-4e5f-a710-468a06133557",
+          "name": "Get Work Item by Id",
+          "request": {
+            "name": "Get Work Item by Id",
+            "description": {
+              "content": "Returns a single work item by its numeric ID. Supports field selection and expansion of related entities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "wit",
+                "workitems",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$expand",
+                  "value": "<string>",
+                  "description": "Expand related entities (all, fields, relations, links, none)"
+                },
+                {
+                  "disabled": false,
+                  "key": "$select",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.3",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) Project name or ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Work item ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0086fd07-e166-44d3-bee2-1fd63690e262",
+              "name": "Work item details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "workitems",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$expand",
+                      "value": "all"
+                    },
+                    {
+                      "key": "$select",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) Project name or ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Work item ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"rev\": 10,\n  \"fields\": {\n    \"System.Id\": \"500123\",\n    \"System.Title\": \"example_value\",\n    \"System.WorkItemType\": \"example_value\",\n    \"System.State\": \"example_value\",\n    \"System.Reason\": \"example_value\",\n    \"System.AssignedTo\": {\n      \"displayName\": \"example_value\",\n      \"id\": \"abc123\",\n      \"uniqueName\": \"example_value\"\n    },\n    \"System.CreatedDate\": \"2026-01-15T10:30:00Z\",\n    \"System.CreatedBy\": {\n      \"displayName\": \"example_value\"\n    },\n    \"System.ChangedDate\": \"2026-01-15T10:30:00Z\",\n    \"System.TeamProject\": \"example_value\",\n    \"System.AreaPath\": \"example_value\",\n    \"System.IterationPath\": \"example_value\",\n    \"System.Description\": \"example_value\",\n    \"System.Tags\": \"example_value\",\n    \"Microsoft.VSTS.Common.Priority\": 10,\n    \"Microsoft.VSTS.Common.Severity\": \"example_value\"\n  },\n  \"relations\": [\n    {\n      \"rel\": \"example_value\",\n      \"url\": \"https://www.example.com\",\n      \"attributes\": {}\n    }\n  ],\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "804531f2-9dbd-453b-a19c-abacbebab5b4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "workitems",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$expand",
+                      "value": "all"
+                    },
+                    {
+                      "key": "$select",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) Project name or ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Work item ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"innerException\": {},\n  \"message\": \"example_value\",\n  \"typeName\": \"example_value\",\n  \"typeKey\": \"example_value\",\n  \"errorCode\": 10,\n  \"eventId\": 4559\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2590f7a1-25d8-48f3-b1ef-56564105126a",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "workitems",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$expand",
+                      "value": "all"
+                    },
+                    {
+                      "key": "$select",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) Project name or ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Work item ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"innerException\": {},\n  \"message\": \"example_value\",\n  \"typeName\": \"example_value\",\n  \"typeKey\": \"example_value\",\n  \"errorCode\": 10,\n  \"eventId\": 4559\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42bc2840-b313-49b4-988f-41e46fc73f36",
+          "name": "Update Work Item",
+          "request": {
+            "name": "Update Work Item",
+            "description": {
+              "content": "Updates a work item using JSON Patch operations. Supports updating fields, adding/removing links, and attaching files.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "wit",
+                "workitems",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.3",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "suppressNotifications",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": {},\n    \"from\": \"<string>\"\n  },\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": {},\n    \"from\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09b86615-8915-4355-a061-537f4a8481e1",
+              "name": "Updated work item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "workitems",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "suppressNotifications",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"op\": \"add\",\n    \"path\": \"example_value\",\n    \"value\": \"example_value\",\n    \"from\": \"example_value\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"rev\": 10,\n  \"fields\": {\n    \"System.Id\": \"500123\",\n    \"System.Title\": \"example_value\",\n    \"System.WorkItemType\": \"example_value\",\n    \"System.State\": \"example_value\",\n    \"System.Reason\": \"example_value\",\n    \"System.AssignedTo\": {\n      \"displayName\": \"example_value\",\n      \"id\": \"abc123\",\n      \"uniqueName\": \"example_value\"\n    },\n    \"System.CreatedDate\": \"2026-01-15T10:30:00Z\",\n    \"System.CreatedBy\": {\n      \"displayName\": \"example_value\"\n    },\n    \"System.ChangedDate\": \"2026-01-15T10:30:00Z\",\n    \"System.TeamProject\": \"example_value\",\n    \"System.AreaPath\": \"example_value\",\n    \"System.IterationPath\": \"example_value\",\n    \"System.Description\": \"example_value\",\n    \"System.Tags\": \"example_value\",\n    \"Microsoft.VSTS.Common.Priority\": 10,\n    \"Microsoft.VSTS.Common.Severity\": \"example_value\"\n  },\n  \"relations\": [\n    {\n      \"rel\": \"example_value\",\n      \"url\": \"https://www.example.com\",\n      \"attributes\": {}\n    }\n  ],\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed1f7086-075b-487e-8db9-7741f72a6a0d",
+          "name": "Create a New Work Item",
+          "request": {
+            "name": "Create a New Work Item",
+            "description": {
+              "content": "Creates a new work item of the specified type. Uses JSON Patch to set field values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "wit",
+                "workitems",
+                "${{type}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.3",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": {},\n    \"from\": \"<string>\"\n  },\n  {\n    \"op\": \"<string>\",\n    \"path\": \"<string>\",\n    \"value\": {},\n    \"from\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3887a081-1654-46df-ae09-091bd66312f8",
+              "name": "Created work item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "workitems",
+                    "${{type}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"op\": \"add\",\n    \"path\": \"/fields/System.Title\",\n    \"value\": \"Fix login button on mobile\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/fields/Microsoft.VSTS.TCM.ReproSteps\",\n    \"value\": \"1. Open app on mobile\\n2. Tap login button\\n3. Nothing happens\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/fields/System.AreaPath\",\n    \"value\": \"MyProject\\\\Frontend\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"rev\": 10,\n  \"fields\": {\n    \"System.Id\": \"500123\",\n    \"System.Title\": \"example_value\",\n    \"System.WorkItemType\": \"example_value\",\n    \"System.State\": \"example_value\",\n    \"System.Reason\": \"example_value\",\n    \"System.AssignedTo\": {\n      \"displayName\": \"example_value\",\n      \"id\": \"abc123\",\n      \"uniqueName\": \"example_value\"\n    },\n    \"System.CreatedDate\": \"2026-01-15T10:30:00Z\",\n    \"System.CreatedBy\": {\n      \"displayName\": \"example_value\"\n    },\n    \"System.ChangedDate\": \"2026-01-15T10:30:00Z\",\n    \"System.TeamProject\": \"example_value\",\n    \"System.AreaPath\": \"example_value\",\n    \"System.IterationPath\": \"example_value\",\n    \"System.Description\": \"example_value\",\n    \"System.Tags\": \"example_value\",\n    \"Microsoft.VSTS.Common.Priority\": 10,\n    \"Microsoft.VSTS.Common.Severity\": \"example_value\"\n  },\n  \"relations\": [\n    {\n      \"rel\": \"example_value\",\n      \"url\": \"https://www.example.com\",\n      \"attributes\": {}\n    }\n  ],\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae0c0308-25a7-4754-ba90-4890fa7c4659",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "workitems",
+                    "${{type}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"op\": \"add\",\n    \"path\": \"/fields/System.Title\",\n    \"value\": \"Fix login button on mobile\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/fields/Microsoft.VSTS.TCM.ReproSteps\",\n    \"value\": \"1. Open app on mobile\\n2. Tap login button\\n3. Nothing happens\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/fields/System.AreaPath\",\n    \"value\": \"MyProject\\\\Frontend\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"innerException\": {},\n  \"message\": \"example_value\",\n  \"typeName\": \"example_value\",\n  \"typeKey\": \"example_value\",\n  \"errorCode\": 10,\n  \"eventId\": 4559\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37e3a136-d743-4f2c-893b-935fe168dd35",
+          "name": "Get Work Items by Ids",
+          "request": {
+            "name": "Get Work Items by Ids",
+            "description": {
+              "content": "Returns multiple work items by a list of IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "wit",
+                "workitems"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of work item IDs (max 200)"
+                },
+                {
+                  "disabled": false,
+                  "key": "$expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.3",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4298c42-2d57-404a-bc1d-1680b3d20a0e",
+              "name": "List of work items",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "workitems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "$expand",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 10,\n  \"value\": [\n    {\n      \"id\": \"abc123\",\n      \"rev\": 10,\n      \"fields\": {\n        \"System.Id\": \"500123\",\n        \"System.Title\": \"example_value\",\n        \"System.WorkItemType\": \"example_value\",\n        \"System.State\": \"example_value\",\n        \"System.Reason\": \"example_value\",\n        \"System.AssignedTo\": {},\n        \"System.CreatedDate\": \"2026-01-15T10:30:00Z\",\n        \"System.CreatedBy\": {},\n        \"System.ChangedDate\": \"2026-01-15T10:30:00Z\",\n        \"System.TeamProject\": \"example_value\",\n        \"System.AreaPath\": \"example_value\",\n        \"System.IterationPath\": \"example_value\",\n        \"System.Description\": \"example_value\",\n        \"System.Tags\": \"example_value\",\n        \"Microsoft.VSTS.Common.Priority\": 10,\n        \"Microsoft.VSTS.Common.Severity\": \"example_value\"\n      },\n      \"relations\": [\n        {}\n      ],\n      \"url\": \"https://www.example.com\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Azure DevOps organization name",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "my-org",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://dev.azure.com/{{organization}}",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Work item type (e.g., Bug, Task, User Story, Epic, Feature)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "type"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "107e6e37-3bf6-4415-b979-b10d6bcb7f24",
+    "name": "Azure DevOps Work Item Tracking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Azure DevOps Work Item Tracking API provides REST endpoints for creating, updating, querying, and managing work items including bugs, tasks, user stories, epics, and features across Azure Boards. Supports custom fields, area paths, iteration paths, and link types for Agile, Scrum, and CMMI process templates.\n\nContact Support:\n Name: Microsoft Azure DevOps",
+      "type": "text/plain"
+    }
+  }
+}
