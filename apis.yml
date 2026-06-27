@@ -205,16 +205,16 @@ common:
         description: Bidirectional sync of work items with Jira issues
   - type: GitHubOrganization
     url: https://github.com/microsoft
-  - type: SDK
+  - type: SDKs
     url: https://github.com/microsoft/azure-devops-node-api
     title: Node.js SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/microsoft/azure-devops-python-api
     title: Python SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/microsoft/azure-devops-go-api
     title: Go SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/microsoft/azure-devops-java-api
     title: Java SDK
   - type: CLI
