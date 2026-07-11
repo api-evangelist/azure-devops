@@ -154,6 +154,12 @@ apis:
       environments. APIs support release definition management, deployment approvals, environment configuration, and
       release history tracking for continuous delivery workflows.
 common:
+  - type: VulnerabilityDisclosure
+    url: security/azure-devops-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/azure-devops-domain-security.yml
+  - type: Authentication
+    url: authentication/azure-devops-authentication.yml
   - type: OAuthScopes
     url: scopes/azure-devops-scopes.yml
   - type: LinkedIn

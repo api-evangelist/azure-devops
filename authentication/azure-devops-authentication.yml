@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/azure-devops-pipelines-openapi.yml, openapi/azure-devops-work-items-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: personalAccessToken
+  type: http
+  scheme: basic
+  sources:
+  - openapi/azure-devops-pipelines-openapi.yml
+  - openapi/azure-devops-work-items-openapi.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://app.vssps.visualstudio.com/oauth2/authorize
+    tokenUrl: https://app.vssps.visualstudio.com/oauth2/token
+    scopes: 2
+  sources:
+  - openapi/azure-devops-pipelines-openapi.yml
+  - openapi/azure-devops-work-items-openapi.yml
