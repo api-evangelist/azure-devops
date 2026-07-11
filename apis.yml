@@ -154,6 +154,8 @@ apis:
       environments. APIs support release definition management, deployment approvals, environment configuration, and
       release history tracking for continuous delivery workflows.
 common:
+  - type: OAuthScopes
+    url: scopes/azure-devops-scopes.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/microsoft-azure-devops
   - url: https://azure.microsoft.com/en-us/products/devops
@@ -287,6 +289,8 @@ common:
   - name: MCP Server
     url: https://github.com/microsoft/azure-devops-mcp
     type: MCPServer
+  - url: https://devblogs.microsoft.com/devops/feed/
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
