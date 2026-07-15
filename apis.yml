@@ -154,6 +154,8 @@ apis:
       environments. APIs support release definition management, deployment approvals, environment configuration, and
       release history tracking for continuous delivery workflows.
 common:
+  - type: AgenticAccess
+    url: agentic-access/azure-devops-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/azure-devops-vulnerability-disclosure.yml
   - type: DomainSecurity
