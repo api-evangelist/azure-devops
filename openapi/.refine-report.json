@@ -1,0 +1,22 @@
+{
+  "provider": "azure-devops",
+  "sources": [
+    "azure-devops-fields-api-openapi.yml",
+    "azure-devops-pipelines-api-openapi.yml",
+    "azure-devops-queries-api-openapi.yml",
+    "azure-devops-runs-api-openapi.yml",
+    "azure-devops-workitems-api-openapi.yml"
+  ],
+  "outputs": [
+    "azure-devops-fields-api-openapi.yml",
+    "azure-devops-pipelines-api-openapi.yml",
+    "azure-devops-queries-api-openapi.yml",
+    "azure-devops-runs-api-openapi.yml",
+    "azure-devops-workitems-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

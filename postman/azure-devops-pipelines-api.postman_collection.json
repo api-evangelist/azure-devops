@@ -1,0 +1,528 @@
+{
+  "info": {
+    "_postman_id": "e2973a24-90bc-4024-8dec-86007a8b6791",
+    "name": "Azure DevOps Fields Pipelines API",
+    "description": "The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.\n\nContact Support:\n Name: Microsoft Azure DevOps",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:09:14.000Z",
+    "updatedAt": "2026-07-28T01:09:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e2973a24-90bc-4024-8dec-86007a8b6791"
+  },
+  "item": [
+    {
+      "name": "{project}",
+      "item": [
+        {
+          "name": "_apis",
+          "item": [
+            {
+              "name": "pipelines",
+              "item": [
+                {
+                  "name": "{pipelineId}",
+                  "item": [
+                    {
+                      "name": "Get Pipeline",
+                      "id": "524ceb12-8390-4673-b10b-fd2edaf22e37",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:project/_apis/pipelines/:pipelineId?api-version=7.2-preview.1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":project",
+                            "_apis",
+                            "pipelines",
+                            ":pipelineId"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "api-version",
+                              "value": "7.2-preview.1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "2d6302ab-95d2-4bb7-8d0b-5676649fad7f",
+                              "key": "project",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "794d71aa-f923-44fd-86c6-56a76b06f93f",
+                              "key": "pipelineId",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "90597007-8219-45f1-a25c-89d075b722f6",
+                              "key": "organization",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Get a specific pipeline by ID."
+                      },
+                      "response": [
+                        {
+                          "id": "abef68a7-a7cf-481b-aa07-1204a0621efb",
+                          "name": "Pipeline details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/pipelines/:pipelineId?api-version=7.2-preview.1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "pipelines",
+                                ":pipelineId"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project"
+                                },
+                                {
+                                  "key": "pipelineId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"revision\": \"<integer>\",\n  \"folder\": \"<string>\",\n  \"configuration\": {\n    \"type\": \"designerHyphenJson\",\n    \"path\": \"<string>\",\n    \"repository\": {\n      \"id\": \"<string>\",\n      \"type\": \"bitbucket\"\n    }\n  },\n  \"url\": \"<string>\",\n  \"links\": {}\n}",
+                          "createdAt": "2026-07-28T01:09:14.000Z",
+                          "updatedAt": "2026-07-28T01:09:14.000Z",
+                          "uid": "35240-abef68a7-a7cf-481b-aa07-1204a0621efb"
+                        },
+                        {
+                          "id": "7aa4e675-b71f-4c6b-b1ce-28d43a25d37e",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/pipelines/:pipelineId?api-version=7.2-preview.1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "pipelines",
+                                ":pipelineId"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project"
+                                },
+                                {
+                                  "key": "pipelineId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T01:09:14.000Z",
+                          "updatedAt": "2026-07-28T01:09:14.000Z",
+                          "uid": "35240-7aa4e675-b71f-4c6b-b1ce-28d43a25d37e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:09:14.000Z",
+                      "updatedAt": "2026-07-28T01:09:14.000Z",
+                      "uid": "35240-524ceb12-8390-4673-b10b-fd2edaf22e37"
+                    }
+                  ],
+                  "id": "92334180-14a5-4dfd-b48b-a998d25efa64",
+                  "createdAt": "2026-07-28T01:09:14.000Z",
+                  "updatedAt": "2026-07-28T01:09:14.000Z",
+                  "uid": "35240-92334180-14a5-4dfd-b48b-a998d25efa64"
+                },
+                {
+                  "name": "List Pipelines",
+                  "id": "75fe6a47-4a8d-41be-ba35-14a81a3048cc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:project/_apis/pipelines?$orderBy=<string>&$top=<integer>&continuationToken=<string>&api-version=7.2-preview.1",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":project",
+                        "_apis",
+                        "pipelines"
+                      ],
+                      "query": [
+                        {
+                          "key": "$orderBy",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "$top",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "continuationToken",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "api-version",
+                          "value": "7.2-preview.1"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "7eb2ea51-0c79-4f7e-acf3-269b7d0c29a0",
+                          "key": "project",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        },
+                        {
+                          "id": "9ae49b70-73a1-4a85-ae28-cb7032c7bcde",
+                          "key": "organization",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "List all pipelines in the project."
+                  },
+                  "response": [
+                    {
+                      "id": "b7ba4cbb-f350-44de-aa90-3097c67caa31",
+                      "name": "List of pipelines",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:project/_apis/pipelines?$orderBy=<string>&$top=<integer>&continuationToken=<string>&api-version=7.2-preview.1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":project",
+                            "_apis",
+                            "pipelines"
+                          ],
+                          "query": [
+                            {
+                              "key": "$orderBy",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "$top",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "continuationToken",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) ",
+                              "key": "api-version",
+                              "value": "7.2-preview.1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "project"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"count\": \"<integer>\",\n  \"value\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"revision\": \"<integer>\",\n      \"folder\": \"<string>\",\n      \"configuration\": {\n        \"type\": \"justInTime\",\n        \"path\": \"<string>\",\n        \"repository\": {\n          \"id\": \"<string>\",\n          \"type\": \"bitbucket\"\n        }\n      },\n      \"url\": \"<string>\",\n      \"links\": {}\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"revision\": \"<integer>\",\n      \"folder\": \"<string>\",\n      \"configuration\": {\n        \"type\": \"justInTime\",\n        \"path\": \"<string>\",\n        \"repository\": {\n          \"id\": \"<string>\",\n          \"type\": \"azureReposGit\"\n        }\n      },\n      \"url\": \"<string>\",\n      \"links\": {}\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:09:14.000Z",
+                      "updatedAt": "2026-07-28T01:09:14.000Z",
+                      "uid": "35240-b7ba4cbb-f350-44de-aa90-3097c67caa31"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:09:14.000Z",
+                  "updatedAt": "2026-07-28T01:09:14.000Z",
+                  "uid": "35240-75fe6a47-4a8d-41be-ba35-14a81a3048cc"
+                },
+                {
+                  "name": "Create a Pipeline",
+                  "id": "314444fe-829b-49c8-a98f-35776fdb22b5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": {\n    \"type\": \"yaml\",\n    \"path\": \"<string>\",\n    \"repository\": {\n      \"id\": \"<string>\",\n      \"type\": \"azureReposGit\"\n    }\n  },\n  \"folder\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:project/_apis/pipelines?api-version=7.2-preview.1",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":project",
+                        "_apis",
+                        "pipelines"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "api-version",
+                          "value": "7.2-preview.1"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "1c739002-2fc1-497f-b32c-9d507ab689f5",
+                          "key": "project",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        },
+                        {
+                          "id": "cdc1fdda-0ce0-47ab-ad5b-a2736e8989a1",
+                          "key": "organization",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Creates a new pipeline from a YAML definition in a repository."
+                  },
+                  "response": [
+                    {
+                      "id": "fa7c05e7-2cc0-48e7-9566-f526657a78bb",
+                      "name": "Created pipeline",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": {\n    \"type\": \"yaml\",\n    \"path\": \"<string>\",\n    \"repository\": {\n      \"id\": \"<string>\",\n      \"type\": \"azureReposGit\"\n    }\n  },\n  \"folder\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:project/_apis/pipelines?api-version=7.2-preview.1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":project",
+                            "_apis",
+                            "pipelines"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "api-version",
+                              "value": "7.2-preview.1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "project"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"revision\": \"<integer>\",\n  \"folder\": \"<string>\",\n  \"configuration\": {\n    \"type\": \"designerHyphenJson\",\n    \"path\": \"<string>\",\n    \"repository\": {\n      \"id\": \"<string>\",\n      \"type\": \"bitbucket\"\n    }\n  },\n  \"url\": \"<string>\",\n  \"links\": {}\n}",
+                      "createdAt": "2026-07-28T01:09:14.000Z",
+                      "updatedAt": "2026-07-28T01:09:14.000Z",
+                      "uid": "35240-fa7c05e7-2cc0-48e7-9566-f526657a78bb"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:09:14.000Z",
+                  "updatedAt": "2026-07-28T01:09:14.000Z",
+                  "uid": "35240-314444fe-829b-49c8-a98f-35776fdb22b5"
+                }
+              ],
+              "id": "9a808cf4-5c44-4274-9565-15e650fe2ca2",
+              "createdAt": "2026-07-28T01:09:14.000Z",
+              "updatedAt": "2026-07-28T01:09:14.000Z",
+              "uid": "35240-9a808cf4-5c44-4274-9565-15e650fe2ca2"
+            }
+          ],
+          "id": "5289d5b1-4f07-4bc0-b5c0-628b13af6c88",
+          "createdAt": "2026-07-28T01:09:14.000Z",
+          "updatedAt": "2026-07-28T01:09:14.000Z",
+          "uid": "35240-5289d5b1-4f07-4bc0-b5c0-628b13af6c88"
+        }
+      ],
+      "id": "304700e7-4ae3-4628-8c10-dac7a0b1b4ff",
+      "createdAt": "2026-07-28T01:09:14.000Z",
+      "updatedAt": "2026-07-28T01:09:14.000Z",
+      "uid": "35240-304700e7-4ae3-4628-8c10-dac7a0b1b4ff"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "my-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://dev.azure.com/{{organization}}"
+    }
+  ]
+}

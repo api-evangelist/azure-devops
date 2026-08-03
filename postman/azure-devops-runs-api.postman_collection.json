@@ -1,0 +1,501 @@
+{
+  "info": {
+    "_postman_id": "3228df58-3511-4f4f-ad2e-d37952000f83",
+    "name": "Azure DevOps Pipelines Fields Runs API",
+    "description": "The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.\n\nContact Support:\n Name: Microsoft Azure DevOps",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:09:16.000Z",
+    "updatedAt": "2026-07-28T01:09:16.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3228df58-3511-4f4f-ad2e-d37952000f83"
+  },
+  "item": [
+    {
+      "name": "{project}",
+      "item": [
+        {
+          "name": "_apis",
+          "item": [
+            {
+              "name": "pipelines",
+              "item": [
+                {
+                  "name": "{pipelineId}",
+                  "item": [
+                    {
+                      "name": "runs",
+                      "item": [
+                        {
+                          "name": "{runId}",
+                          "item": [
+                            {
+                              "name": "Get Pipeline Run",
+                              "id": "5ab47e8f-f5d3-4433-ae9a-c7d4572eaf6b",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:project/_apis/pipelines/:pipelineId/runs/:runId?api-version=7.2-preview.1",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":project",
+                                    "_apis",
+                                    "pipelines",
+                                    ":pipelineId",
+                                    "runs",
+                                    ":runId"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "api-version",
+                                      "value": "7.2-preview.1"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "c635cc1b-0c6d-4ca9-b448-9cc88d93accf",
+                                      "key": "project",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "245e63fb-1ee0-4d68-b60d-f95fc1bc3f0e",
+                                      "key": "pipelineId",
+                                      "value": "<integer>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "120d7cb7-585a-408f-8ee2-0e667d7dc65e",
+                                      "key": "runId",
+                                      "value": "<integer>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "cf6861e7-de41-4abb-975d-0ee9fe85b338",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Get the details of a specific pipeline run."
+                              },
+                              "response": [
+                                {
+                                  "id": "eb2931f1-c072-43db-a14a-c2beec8dd742",
+                                  "name": "Pipeline run details",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: basic",
+                                        "key": "Authorization",
+                                        "value": "Basic <credentials>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/:project/_apis/pipelines/:pipelineId/runs/:runId?api-version=7.2-preview.1",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        ":project",
+                                        "_apis",
+                                        "pipelines",
+                                        ":pipelineId",
+                                        "runs",
+                                        ":runId"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "(Required) ",
+                                          "key": "api-version",
+                                          "value": "7.2-preview.1"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "project"
+                                        },
+                                        {
+                                          "key": "pipelineId"
+                                        },
+                                        {
+                                          "key": "runId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"state\": \"completed\",\n  \"result\": \"failed\",\n  \"createdDate\": \"<dateTime>\",\n  \"finishedDate\": \"<dateTime>\",\n  \"pipeline\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"resources\": {\n    \"repositories\": {\n      \"tempor09\": {\n        \"repository\": {},\n        \"refName\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"enimfc\": {\n        \"repository\": {},\n        \"refName\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"consectetur18\": {\n        \"repository\": {},\n        \"refName\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"labore6bd\": {\n        \"repository\": {},\n        \"refName\": \"<string>\",\n        \"version\": \"<string>\"\n      }\n    }\n  },\n  \"variables\": {\n    \"nisie\": {\n      \"value\": \"<string>\",\n      \"isSecret\": \"<boolean>\"\n    },\n    \"Ut_5e\": {\n      \"value\": \"<string>\",\n      \"isSecret\": \"<boolean>\"\n    }\n  },\n  \"url\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T01:09:17.000Z",
+                                  "updatedAt": "2026-07-28T01:09:17.000Z",
+                                  "uid": "35240-eb2931f1-c072-43db-a14a-c2beec8dd742"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:09:17.000Z",
+                              "updatedAt": "2026-07-28T01:09:17.000Z",
+                              "uid": "35240-5ab47e8f-f5d3-4433-ae9a-c7d4572eaf6b"
+                            }
+                          ],
+                          "id": "403df05d-f7b0-4d56-948d-14d959a738f0",
+                          "createdAt": "2026-07-28T01:09:17.000Z",
+                          "updatedAt": "2026-07-28T01:09:17.000Z",
+                          "uid": "35240-403df05d-f7b0-4d56-948d-14d959a738f0"
+                        },
+                        {
+                          "name": "List Pipeline Runs",
+                          "id": "b43ac412-cac5-40a9-a975-6348af665d91",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/pipelines/:pipelineId/runs?api-version=7.2-preview.1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "pipelines",
+                                ":pipelineId",
+                                "runs"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "122af62f-c491-45a1-a11a-dbf8e2674380",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "d2213190-6d5c-4c1f-854e-e95ad445463c",
+                                  "key": "pipelineId",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "18b145c0-3a5a-4ea1-83f8-c5da50f0e02b",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "List runs for a specific pipeline."
+                          },
+                          "response": [
+                            {
+                              "id": "6580f460-700f-474e-a1d9-0c4d737c6192",
+                              "name": "Pipeline runs",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:project/_apis/pipelines/:pipelineId/runs?api-version=7.2-preview.1",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":project",
+                                    "_apis",
+                                    "pipelines",
+                                    ":pipelineId",
+                                    "runs"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "api-version",
+                                      "value": "7.2-preview.1"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "pipelineId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"count\": \"<integer>\",\n  \"value\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"state\": \"inProgress\",\n      \"result\": \"succeeded\",\n      \"createdDate\": \"<dateTime>\",\n      \"finishedDate\": \"<dateTime>\",\n      \"pipeline\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"resources\": {\n        \"repositories\": {\n          \"Excepteura6\": {\n            \"repository\": {},\n            \"refName\": \"<string>\",\n            \"version\": \"<string>\"\n          }\n        }\n      },\n      \"variables\": {\n        \"laborum_b7\": {\n          \"value\": \"<string>\",\n          \"isSecret\": \"<boolean>\"\n        }\n      },\n      \"url\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"state\": \"unknown\",\n      \"result\": \"failed\",\n      \"createdDate\": \"<dateTime>\",\n      \"finishedDate\": \"<dateTime>\",\n      \"pipeline\": {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      \"resources\": {\n        \"repositories\": {\n          \"eiusmod_2c4\": {\n            \"repository\": {},\n            \"refName\": \"<string>\",\n            \"version\": \"<string>\"\n          }\n        }\n      },\n      \"variables\": {\n        \"consequat15b\": {\n          \"value\": \"<string>\",\n          \"isSecret\": \"<boolean>\"\n        },\n        \"Ut_4\": {\n          \"value\": \"<string>\",\n          \"isSecret\": \"<boolean>\"\n        },\n        \"culpa_b\": {\n          \"value\": \"<string>\",\n          \"isSecret\": \"<boolean>\"\n        }\n      },\n      \"url\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:09:17.000Z",
+                              "updatedAt": "2026-07-28T01:09:17.000Z",
+                              "uid": "35240-6580f460-700f-474e-a1d9-0c4d737c6192"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:09:17.000Z",
+                          "updatedAt": "2026-07-28T01:09:17.000Z",
+                          "uid": "35240-b43ac412-cac5-40a9-a975-6348af665d91"
+                        },
+                        {
+                          "name": "Run a Pipeline",
+                          "id": "2b86a9ef-f6a1-4ebd-8043-d48cd64d4443",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"resources\": {\n    \"repositories\": {\n      \"self\": {\n        \"refName\": \"<string>\"\n      }\n    }\n  },\n  \"variables\": {\n    \"Ut_c\": {\n      \"value\": \"<string>\",\n      \"isSecret\": \"<boolean>\"\n    }\n  },\n  \"templateParameters\": {\n    \"occaecata1\": \"esse exercitation\",\n    \"commodo_9\": 66082523.314142704\n  },\n  \"stagesToSkip\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/pipelines/:pipelineId/runs?api-version=7.2-preview.1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "pipelines",
+                                ":pipelineId",
+                                "runs"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "8da0a83b-b7ec-4330-8eb6-2af8e05a5455",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "1226e23e-1e99-40cb-a864-f45520ba783b",
+                                  "key": "pipelineId",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "48527154-e118-4cee-afcb-4789fd398a11",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Triggers a new run of the specified pipeline."
+                          },
+                          "response": [
+                            {
+                              "id": "e2c30e9b-fa53-4c36-95cd-4bf2f39935c4",
+                              "name": "Pipeline run started",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"resources\": {\n    \"repositories\": {\n      \"self\": {\n        \"refName\": \"<string>\"\n      }\n    }\n  },\n  \"variables\": {\n    \"Ut_c\": {\n      \"value\": \"<string>\",\n      \"isSecret\": \"<boolean>\"\n    }\n  },\n  \"templateParameters\": {\n    \"occaecata1\": \"esse exercitation\",\n    \"commodo_9\": 66082523.314142704\n  },\n  \"stagesToSkip\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/:project/_apis/pipelines/:pipelineId/runs?api-version=7.2-preview.1",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":project",
+                                    "_apis",
+                                    "pipelines",
+                                    ":pipelineId",
+                                    "runs"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "api-version",
+                                      "value": "7.2-preview.1"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "pipelineId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"state\": \"completed\",\n  \"result\": \"failed\",\n  \"createdDate\": \"<dateTime>\",\n  \"finishedDate\": \"<dateTime>\",\n  \"pipeline\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"resources\": {\n    \"repositories\": {\n      \"tempor09\": {\n        \"repository\": {},\n        \"refName\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"enimfc\": {\n        \"repository\": {},\n        \"refName\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"consectetur18\": {\n        \"repository\": {},\n        \"refName\": \"<string>\",\n        \"version\": \"<string>\"\n      },\n      \"labore6bd\": {\n        \"repository\": {},\n        \"refName\": \"<string>\",\n        \"version\": \"<string>\"\n      }\n    }\n  },\n  \"variables\": {\n    \"nisie\": {\n      \"value\": \"<string>\",\n      \"isSecret\": \"<boolean>\"\n    },\n    \"Ut_5e\": {\n      \"value\": \"<string>\",\n      \"isSecret\": \"<boolean>\"\n    }\n  },\n  \"url\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:09:17.000Z",
+                              "updatedAt": "2026-07-28T01:09:17.000Z",
+                              "uid": "35240-e2c30e9b-fa53-4c36-95cd-4bf2f39935c4"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:09:17.000Z",
+                          "updatedAt": "2026-07-28T01:09:17.000Z",
+                          "uid": "35240-2b86a9ef-f6a1-4ebd-8043-d48cd64d4443"
+                        }
+                      ],
+                      "id": "dcf4954d-22e3-43f1-9833-3d9881f5c8c3",
+                      "createdAt": "2026-07-28T01:09:17.000Z",
+                      "updatedAt": "2026-07-28T01:09:17.000Z",
+                      "uid": "35240-dcf4954d-22e3-43f1-9833-3d9881f5c8c3"
+                    }
+                  ],
+                  "id": "ee0c2bde-7fb4-40dc-ac13-9e9162fd0c27",
+                  "createdAt": "2026-07-28T01:09:17.000Z",
+                  "updatedAt": "2026-07-28T01:09:17.000Z",
+                  "uid": "35240-ee0c2bde-7fb4-40dc-ac13-9e9162fd0c27"
+                }
+              ],
+              "id": "df46b7f2-36be-4b98-a8fd-8b6988cb798c",
+              "createdAt": "2026-07-28T01:09:17.000Z",
+              "updatedAt": "2026-07-28T01:09:17.000Z",
+              "uid": "35240-df46b7f2-36be-4b98-a8fd-8b6988cb798c"
+            }
+          ],
+          "id": "3171f1de-ebfb-4fa0-8d98-8e9eab08172c",
+          "createdAt": "2026-07-28T01:09:17.000Z",
+          "updatedAt": "2026-07-28T01:09:17.000Z",
+          "uid": "35240-3171f1de-ebfb-4fa0-8d98-8e9eab08172c"
+        }
+      ],
+      "id": "59b59378-90bc-42ed-837d-ddeffe68d85d",
+      "createdAt": "2026-07-28T01:09:17.000Z",
+      "updatedAt": "2026-07-28T01:09:17.000Z",
+      "uid": "35240-59b59378-90bc-42ed-837d-ddeffe68d85d"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "my-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://dev.azure.com/{{organization}}"
+    }
+  ]
+}

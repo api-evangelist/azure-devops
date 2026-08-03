@@ -1,0 +1,225 @@
+{
+  "info": {
+    "_postman_id": "b413d661-4e4a-4e56-aff3-e6e6bb285273",
+    "name": "Azure DevOps Pipelines Fields Queries API",
+    "description": "The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.\n\nContact Support:\n Name: Microsoft Azure DevOps",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:09:15.000Z",
+    "updatedAt": "2026-07-28T01:09:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b413d661-4e4a-4e56-aff3-e6e6bb285273"
+  },
+  "item": [
+    {
+      "name": "{project}",
+      "item": [
+        {
+          "name": "_apis",
+          "item": [
+            {
+              "name": "wit",
+              "item": [
+                {
+                  "name": "wiql",
+                  "item": [
+                    {
+                      "name": "Query Work Items Using Wiql",
+                      "id": "8dfa1a3b-a95d-4872-9e2d-5e05e0d1caa0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:project/_apis/wit/wiql?$top=<integer>&api-version=7.2-preview.2",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":project",
+                            "_apis",
+                            "wit",
+                            "wiql"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results to return",
+                              "key": "$top",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "(Required) ",
+                              "key": "api-version",
+                              "value": "7.2-preview.2"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "a514b9bc-ce2a-433c-8e18-6e4ce12e3ada",
+                              "key": "project",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "df0419eb-1164-4031-a2af-b38f15086b86",
+                              "key": "organization",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Executes a Work Item Query Language (WIQL) query to find work items matching the specified criteria."
+                      },
+                      "response": [
+                        {
+                          "id": "2892ec2e-2c9d-46ac-8270-7c42be5aa611",
+                          "name": "Query results",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"query\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/wit/wiql?$top=<integer>&api-version=7.2-preview.2",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "wit",
+                                "wiql"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Maximum number of results to return",
+                                  "key": "$top",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.2"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"queryType\": \"flat\",\n  \"asOf\": \"<dateTime>\",\n  \"workItems\": [\n    {\n      \"id\": \"<integer>\",\n      \"url\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"url\": \"<string>\"\n    }\n  ],\n  \"workItemRelations\": [\n    {\n      \"source\": {\n        \"id\": \"<integer>\"\n      },\n      \"target\": {\n        \"id\": \"<integer>\"\n      },\n      \"rel\": \"<string>\"\n    },\n    {\n      \"source\": {\n        \"id\": \"<integer>\"\n      },\n      \"target\": {\n        \"id\": \"<integer>\"\n      },\n      \"rel\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:09:15.000Z",
+                          "updatedAt": "2026-07-28T01:09:15.000Z",
+                          "uid": "35240-2892ec2e-2c9d-46ac-8270-7c42be5aa611"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:09:15.000Z",
+                      "updatedAt": "2026-07-28T01:09:15.000Z",
+                      "uid": "35240-8dfa1a3b-a95d-4872-9e2d-5e05e0d1caa0"
+                    }
+                  ],
+                  "id": "dad16176-41be-4a85-a065-79ec66cc167d",
+                  "createdAt": "2026-07-28T01:09:15.000Z",
+                  "updatedAt": "2026-07-28T01:09:15.000Z",
+                  "uid": "35240-dad16176-41be-4a85-a065-79ec66cc167d"
+                }
+              ],
+              "id": "71969dda-1d25-4e21-9f6d-e0540b9c07ea",
+              "createdAt": "2026-07-28T01:09:15.000Z",
+              "updatedAt": "2026-07-28T01:09:15.000Z",
+              "uid": "35240-71969dda-1d25-4e21-9f6d-e0540b9c07ea"
+            }
+          ],
+          "id": "271cbd1d-e6a8-42eb-8af1-2cfd14984a99",
+          "createdAt": "2026-07-28T01:09:15.000Z",
+          "updatedAt": "2026-07-28T01:09:15.000Z",
+          "uid": "35240-271cbd1d-e6a8-42eb-8af1-2cfd14984a99"
+        }
+      ],
+      "id": "9a12d39b-2aaa-4772-8fd0-c38e82356f3d",
+      "createdAt": "2026-07-28T01:09:15.000Z",
+      "updatedAt": "2026-07-28T01:09:15.000Z",
+      "uid": "35240-9a12d39b-2aaa-4772-8fd0-c38e82356f3d"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "my-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://dev.azure.com/{{organization}}"
+    }
+  ]
+}

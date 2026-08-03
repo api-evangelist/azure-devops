@@ -1,0 +1,885 @@
+{
+  "info": {
+    "_postman_id": "b07a870d-adfb-416f-bc7f-e6204d1781a2",
+    "name": "Azure DevOps Pipelines Fields WorkItems API",
+    "description": "The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.\n\nContact Support:\n Name: Microsoft Azure DevOps",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:09:17.000Z",
+    "updatedAt": "2026-07-28T01:09:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b07a870d-adfb-416f-bc7f-e6204d1781a2"
+  },
+  "item": [
+    {
+      "name": "{project}",
+      "item": [
+        {
+          "name": "_apis",
+          "item": [
+            {
+              "name": "wit",
+              "item": [
+                {
+                  "name": "workitems",
+                  "item": [
+                    {
+                      "name": "{id}",
+                      "item": [
+                        {
+                          "name": "Get Work Item by Id",
+                          "id": "860a7218-98fc-4449-88f4-dbd9660e05d1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/wit/workitems/:id?$expand=none&$select=<string>&api-version=7.2-preview.3",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "wit",
+                                "workitems",
+                                ":id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Expand related entities (all, fields, relations, links, none)",
+                                  "key": "$expand",
+                                  "value": "none"
+                                },
+                                {
+                                  "description": "Comma-separated list of fields to return",
+                                  "key": "$select",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.3"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e8bbd93d-fc98-4454-a776-4a05d29541a5",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) Project name or ID"
+                                },
+                                {
+                                  "id": "251d8f1b-0b28-48c1-b41e-ad15d90cbeb9",
+                                  "key": "id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Work item ID"
+                                },
+                                {
+                                  "id": "3ec41fd2-3625-45dc-b7e4-53dae6a81d3f",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Returns a single work item by its numeric ID. Supports field selection and expansion of related entities."
+                          },
+                          "response": [
+                            {
+                              "id": "29bdb4e6-81e0-4e2a-b07f-de0a4ead6391",
+                              "name": "Work item details",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:project/_apis/wit/workitems/:id?$expand=none&$select=<string>&api-version=7.2-preview.3",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":project",
+                                    "_apis",
+                                    "wit",
+                                    "workitems",
+                                    ":id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Expand related entities (all, fields, relations, links, none)",
+                                      "key": "$expand",
+                                      "value": "none"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of fields to return",
+                                      "key": "$select",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "api-version",
+                                      "value": "7.2-preview.3"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"rev\": \"<integer>\",\n  \"fields\": {\n    \"System.Id\": \"<integer>\",\n    \"System.Title\": \"<string>\",\n    \"System.WorkItemType\": \"<string>\",\n    \"System.State\": \"<string>\",\n    \"System.Reason\": \"<string>\",\n    \"System.AssignedTo\": {\n      \"displayName\": \"<string>\",\n      \"id\": \"<string>\",\n      \"uniqueName\": \"<string>\"\n    },\n    \"System.CreatedDate\": \"<dateTime>\",\n    \"System.CreatedBy\": {\n      \"displayName\": \"<string>\"\n    },\n    \"System.ChangedDate\": \"<dateTime>\",\n    \"System.TeamProject\": \"<string>\",\n    \"System.AreaPath\": \"<string>\",\n    \"System.IterationPath\": \"<string>\",\n    \"System.Description\": \"<string>\",\n    \"System.Tags\": \"<string>\",\n    \"Microsoft.VSTS.Common.Priority\": \"<integer>\",\n    \"Microsoft.VSTS.Common.Severity\": \"<string>\"\n  },\n  \"relations\": [\n    {\n      \"rel\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"comment\": \"<string>\"\n      }\n    },\n    {\n      \"rel\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"comment\": \"<string>\"\n      }\n    }\n  ],\n  \"url\": \"<uri>\"\n}",
+                              "createdAt": "2026-07-28T01:09:17.000Z",
+                              "updatedAt": "2026-07-28T01:09:17.000Z",
+                              "uid": "35240-29bdb4e6-81e0-4e2a-b07f-de0a4ead6391"
+                            },
+                            {
+                              "id": "08da3e54-7d2f-4f20-af9d-39ce2d9ec4ef",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:project/_apis/wit/workitems/:id?$expand=none&$select=<string>&api-version=7.2-preview.3",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":project",
+                                    "_apis",
+                                    "wit",
+                                    "workitems",
+                                    ":id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Expand related entities (all, fields, relations, links, none)",
+                                      "key": "$expand",
+                                      "value": "none"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of fields to return",
+                                      "key": "$select",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "api-version",
+                                      "value": "7.2-preview.3"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"innerException\": {},\n  \"message\": \"<string>\",\n  \"typeName\": \"<string>\",\n  \"typeKey\": \"<string>\",\n  \"errorCode\": \"<integer>\",\n  \"eventId\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T01:09:17.000Z",
+                              "updatedAt": "2026-07-28T01:09:17.000Z",
+                              "uid": "35240-08da3e54-7d2f-4f20-af9d-39ce2d9ec4ef"
+                            },
+                            {
+                              "id": "3cb23024-aa33-4346-a2ce-d48d19302ab6",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:project/_apis/wit/workitems/:id?$expand=none&$select=<string>&api-version=7.2-preview.3",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":project",
+                                    "_apis",
+                                    "wit",
+                                    "workitems",
+                                    ":id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Expand related entities (all, fields, relations, links, none)",
+                                      "key": "$expand",
+                                      "value": "none"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of fields to return",
+                                      "key": "$select",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "api-version",
+                                      "value": "7.2-preview.3"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"innerException\": {},\n  \"message\": \"<string>\",\n  \"typeName\": \"<string>\",\n  \"typeKey\": \"<string>\",\n  \"errorCode\": \"<integer>\",\n  \"eventId\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T01:09:17.000Z",
+                              "updatedAt": "2026-07-28T01:09:17.000Z",
+                              "uid": "35240-3cb23024-aa33-4346-a2ce-d48d19302ab6"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:09:17.000Z",
+                          "updatedAt": "2026-07-28T01:09:17.000Z",
+                          "uid": "35240-860a7218-98fc-4449-88f4-dbd9660e05d1"
+                        },
+                        {
+                          "name": "Update Work Item",
+                          "id": "b5d68520-987a-47ac-8f63-81d2e8d277d0",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json-patch+json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "[\n  {\n    \"op\": \"move\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  },\n  {\n    \"op\": \"replace\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  }\n]",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/wit/workitems/:id?api-version=7.2-preview.3&suppressNotifications=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "wit",
+                                "workitems",
+                                ":id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.3"
+                                },
+                                {
+                                  "key": "suppressNotifications",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "fb992a8c-ec11-4a4a-8ace-de5e7751cb08",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "2fc88724-8bbd-4d4f-8427-a55f92c6a580",
+                                  "key": "id",
+                                  "value": "<integer>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "7d2ace80-f96a-4adc-bc78-9abb57b55ce6",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Updates a work item using JSON Patch operations. Supports updating fields, adding/removing links, and attaching files."
+                          },
+                          "response": [
+                            {
+                              "id": "913f54be-37fa-48bd-b3f7-b7f1e6764821",
+                              "name": "Updated work item",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json-patch+json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "[\n  {\n    \"op\": \"move\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  },\n  {\n    \"op\": \"replace\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  }\n]",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/:project/_apis/wit/workitems/:id?api-version=7.2-preview.3&suppressNotifications=<boolean>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":project",
+                                    "_apis",
+                                    "wit",
+                                    "workitems",
+                                    ":id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "api-version",
+                                      "value": "7.2-preview.3"
+                                    },
+                                    {
+                                      "key": "suppressNotifications",
+                                      "value": "<boolean>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    },
+                                    {
+                                      "key": "id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"rev\": \"<integer>\",\n  \"fields\": {\n    \"System.Id\": \"<integer>\",\n    \"System.Title\": \"<string>\",\n    \"System.WorkItemType\": \"<string>\",\n    \"System.State\": \"<string>\",\n    \"System.Reason\": \"<string>\",\n    \"System.AssignedTo\": {\n      \"displayName\": \"<string>\",\n      \"id\": \"<string>\",\n      \"uniqueName\": \"<string>\"\n    },\n    \"System.CreatedDate\": \"<dateTime>\",\n    \"System.CreatedBy\": {\n      \"displayName\": \"<string>\"\n    },\n    \"System.ChangedDate\": \"<dateTime>\",\n    \"System.TeamProject\": \"<string>\",\n    \"System.AreaPath\": \"<string>\",\n    \"System.IterationPath\": \"<string>\",\n    \"System.Description\": \"<string>\",\n    \"System.Tags\": \"<string>\",\n    \"Microsoft.VSTS.Common.Priority\": \"<integer>\",\n    \"Microsoft.VSTS.Common.Severity\": \"<string>\"\n  },\n  \"relations\": [\n    {\n      \"rel\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"comment\": \"<string>\"\n      }\n    },\n    {\n      \"rel\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"comment\": \"<string>\"\n      }\n    }\n  ],\n  \"url\": \"<uri>\"\n}",
+                              "createdAt": "2026-07-28T01:09:17.000Z",
+                              "updatedAt": "2026-07-28T01:09:17.000Z",
+                              "uid": "35240-913f54be-37fa-48bd-b3f7-b7f1e6764821"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:09:17.000Z",
+                          "updatedAt": "2026-07-28T01:09:17.000Z",
+                          "uid": "35240-b5d68520-987a-47ac-8f63-81d2e8d277d0"
+                        }
+                      ],
+                      "id": "7c4f25da-01b6-4fa0-ba1d-052eee11df65",
+                      "createdAt": "2026-07-28T01:09:17.000Z",
+                      "updatedAt": "2026-07-28T01:09:17.000Z",
+                      "uid": "35240-7c4f25da-01b6-4fa0-ba1d-052eee11df65"
+                    },
+                    {
+                      "name": "${type}",
+                      "item": [
+                        {
+                          "name": "Create a New Work Item",
+                          "id": "4cbb7b5f-8866-4f20-9607-f3df65a9d1f1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json-patch+json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "[\n  {\n    \"op\": \"move\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  },\n  {\n    \"op\": \"replace\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  }\n]",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/wit/workitems/${{type}}?api-version=7.2-preview.3",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "wit",
+                                "workitems",
+                                "${{type}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.3"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "97937620-3e56-4147-ad25-232b819b8fc5",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "e8446e51-b875-4af0-8fec-8177a4241591",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Creates a new work item of the specified type. Uses JSON Patch to set field values."
+                          },
+                          "response": [
+                            {
+                              "id": "debfde0f-79a1-48c0-afaf-e5dd7d068d28",
+                              "name": "Created work item",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json-patch+json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "[\n  {\n    \"op\": \"move\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  },\n  {\n    \"op\": \"replace\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  }\n]",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/:project/_apis/wit/workitems/${{type}}?api-version=7.2-preview.3",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":project",
+                                    "_apis",
+                                    "wit",
+                                    "workitems",
+                                    "${{type}}"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "api-version",
+                                      "value": "7.2-preview.3"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"rev\": \"<integer>\",\n  \"fields\": {\n    \"System.Id\": \"<integer>\",\n    \"System.Title\": \"<string>\",\n    \"System.WorkItemType\": \"<string>\",\n    \"System.State\": \"<string>\",\n    \"System.Reason\": \"<string>\",\n    \"System.AssignedTo\": {\n      \"displayName\": \"<string>\",\n      \"id\": \"<string>\",\n      \"uniqueName\": \"<string>\"\n    },\n    \"System.CreatedDate\": \"<dateTime>\",\n    \"System.CreatedBy\": {\n      \"displayName\": \"<string>\"\n    },\n    \"System.ChangedDate\": \"<dateTime>\",\n    \"System.TeamProject\": \"<string>\",\n    \"System.AreaPath\": \"<string>\",\n    \"System.IterationPath\": \"<string>\",\n    \"System.Description\": \"<string>\",\n    \"System.Tags\": \"<string>\",\n    \"Microsoft.VSTS.Common.Priority\": \"<integer>\",\n    \"Microsoft.VSTS.Common.Severity\": \"<string>\"\n  },\n  \"relations\": [\n    {\n      \"rel\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"comment\": \"<string>\"\n      }\n    },\n    {\n      \"rel\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"comment\": \"<string>\"\n      }\n    }\n  ],\n  \"url\": \"<uri>\"\n}",
+                              "createdAt": "2026-07-28T01:09:17.000Z",
+                              "updatedAt": "2026-07-28T01:09:17.000Z",
+                              "uid": "35240-debfde0f-79a1-48c0-afaf-e5dd7d068d28"
+                            },
+                            {
+                              "id": "6a5e4123-7ca4-4434-ab22-8dc75cf55962",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json-patch+json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "[\n  {\n    \"op\": \"move\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  },\n  {\n    \"op\": \"replace\",\n    \"path\": \"<string>\",\n    \"value\": {\n      \"description\": \"New value for add/replace operations\",\n      \"example\": \"example_value\"\n    },\n    \"from\": \"<string>\"\n  }\n]",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/:project/_apis/wit/workitems/${{type}}?api-version=7.2-preview.3",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":project",
+                                    "_apis",
+                                    "wit",
+                                    "workitems",
+                                    "${{type}}"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) ",
+                                      "key": "api-version",
+                                      "value": "7.2-preview.3"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"innerException\": {},\n  \"message\": \"<string>\",\n  \"typeName\": \"<string>\",\n  \"typeKey\": \"<string>\",\n  \"errorCode\": \"<integer>\",\n  \"eventId\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T01:09:17.000Z",
+                              "updatedAt": "2026-07-28T01:09:17.000Z",
+                              "uid": "35240-6a5e4123-7ca4-4434-ab22-8dc75cf55962"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:09:17.000Z",
+                          "updatedAt": "2026-07-28T01:09:17.000Z",
+                          "uid": "35240-4cbb7b5f-8866-4f20-9607-f3df65a9d1f1"
+                        }
+                      ],
+                      "id": "9e384fd2-49b9-40d5-9415-93b8eb2a14da",
+                      "createdAt": "2026-07-28T01:09:17.000Z",
+                      "updatedAt": "2026-07-28T01:09:17.000Z",
+                      "uid": "35240-9e384fd2-49b9-40d5-9415-93b8eb2a14da"
+                    },
+                    {
+                      "name": "Get Work Items by Ids",
+                      "id": "6174b219-9708-4d5b-b212-905bd2c2d252",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:project/_apis/wit/workitems?ids=<string>&$expand=<string>&api-version=7.2-preview.3",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":project",
+                            "_apis",
+                            "wit",
+                            "workitems"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Comma-separated list of work item IDs (max 200)",
+                              "key": "ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "$expand",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) ",
+                              "key": "api-version",
+                              "value": "7.2-preview.3"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "3a19dba3-4dd0-4b98-a300-b3c3fff15a4c",
+                              "key": "project",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "fde354a3-6e20-4efd-bd9c-2cfd3e120c33",
+                              "key": "organization",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Returns multiple work items by a list of IDs."
+                      },
+                      "response": [
+                        {
+                          "id": "48d0a486-bb00-45b4-bd82-0f22e768d453",
+                          "name": "List of work items",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/wit/workitems?ids=<string>&$expand=<string>&api-version=7.2-preview.3",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "wit",
+                                "workitems"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Comma-separated list of work item IDs (max 200)",
+                                  "key": "ids",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "$expand",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.3"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"count\": \"<integer>\",\n  \"value\": [\n    {\n      \"id\": \"<integer>\",\n      \"rev\": \"<integer>\",\n      \"fields\": {\n        \"System.Id\": \"<integer>\",\n        \"System.Title\": \"<string>\",\n        \"System.WorkItemType\": \"<string>\",\n        \"System.State\": \"<string>\",\n        \"System.Reason\": \"<string>\",\n        \"System.AssignedTo\": {\n          \"displayName\": \"<string>\",\n          \"id\": \"<string>\",\n          \"uniqueName\": \"<string>\"\n        },\n        \"System.CreatedDate\": \"<dateTime>\",\n        \"System.CreatedBy\": {\n          \"displayName\": \"<string>\"\n        },\n        \"System.ChangedDate\": \"<dateTime>\",\n        \"System.TeamProject\": \"<string>\",\n        \"System.AreaPath\": \"<string>\",\n        \"System.IterationPath\": \"<string>\",\n        \"System.Description\": \"<string>\",\n        \"System.Tags\": \"<string>\",\n        \"Microsoft.VSTS.Common.Priority\": \"<integer>\",\n        \"Microsoft.VSTS.Common.Severity\": \"<string>\"\n      },\n      \"relations\": [\n        {\n          \"rel\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"attributes\": {\n            \"name\": \"<string>\",\n            \"comment\": \"<string>\"\n          }\n        },\n        {\n          \"rel\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"attributes\": {\n            \"name\": \"<string>\",\n            \"comment\": \"<string>\"\n          }\n        }\n      ],\n      \"url\": \"<uri>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"rev\": \"<integer>\",\n      \"fields\": {\n        \"System.Id\": \"<integer>\",\n        \"System.Title\": \"<string>\",\n        \"System.WorkItemType\": \"<string>\",\n        \"System.State\": \"<string>\",\n        \"System.Reason\": \"<string>\",\n        \"System.AssignedTo\": {\n          \"displayName\": \"<string>\",\n          \"id\": \"<string>\",\n          \"uniqueName\": \"<string>\"\n        },\n        \"System.CreatedDate\": \"<dateTime>\",\n        \"System.CreatedBy\": {\n          \"displayName\": \"<string>\"\n        },\n        \"System.ChangedDate\": \"<dateTime>\",\n        \"System.TeamProject\": \"<string>\",\n        \"System.AreaPath\": \"<string>\",\n        \"System.IterationPath\": \"<string>\",\n        \"System.Description\": \"<string>\",\n        \"System.Tags\": \"<string>\",\n        \"Microsoft.VSTS.Common.Priority\": \"<integer>\",\n        \"Microsoft.VSTS.Common.Severity\": \"<string>\"\n      },\n      \"relations\": [\n        {\n          \"rel\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"attributes\": {\n            \"name\": \"<string>\",\n            \"comment\": \"<string>\"\n          }\n        },\n        {\n          \"rel\": \"<string>\",\n          \"url\": \"<uri>\",\n          \"attributes\": {\n            \"name\": \"<string>\",\n            \"comment\": \"<string>\"\n          }\n        }\n      ],\n      \"url\": \"<uri>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:09:17.000Z",
+                          "updatedAt": "2026-07-28T01:09:17.000Z",
+                          "uid": "35240-48d0a486-bb00-45b4-bd82-0f22e768d453"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:09:17.000Z",
+                      "updatedAt": "2026-07-28T01:09:17.000Z",
+                      "uid": "35240-6174b219-9708-4d5b-b212-905bd2c2d252"
+                    }
+                  ],
+                  "id": "306f6fd6-c44f-4b65-ac33-2d58b69abba6",
+                  "createdAt": "2026-07-28T01:09:17.000Z",
+                  "updatedAt": "2026-07-28T01:09:17.000Z",
+                  "uid": "35240-306f6fd6-c44f-4b65-ac33-2d58b69abba6"
+                }
+              ],
+              "id": "d9458308-173e-4b17-9033-8add4bf0b4c1",
+              "createdAt": "2026-07-28T01:09:17.000Z",
+              "updatedAt": "2026-07-28T01:09:17.000Z",
+              "uid": "35240-d9458308-173e-4b17-9033-8add4bf0b4c1"
+            }
+          ],
+          "id": "255db81b-6fe6-4d11-a96d-88ea5ebe6144",
+          "createdAt": "2026-07-28T01:09:17.000Z",
+          "updatedAt": "2026-07-28T01:09:17.000Z",
+          "uid": "35240-255db81b-6fe6-4d11-a96d-88ea5ebe6144"
+        }
+      ],
+      "id": "ed6f9219-0089-4814-bab5-678432efdfc2",
+      "createdAt": "2026-07-28T01:09:17.000Z",
+      "updatedAt": "2026-07-28T01:09:17.000Z",
+      "uid": "35240-ed6f9219-0089-4814-bab5-678432efdfc2"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "my-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://dev.azure.com/{{organization}}"
+    },
+    {
+      "key": "type",
+      "value": "<string>"
+    }
+  ]
+}

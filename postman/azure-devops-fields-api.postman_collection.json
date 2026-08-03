@@ -1,0 +1,187 @@
+{
+  "info": {
+    "_postman_id": "e94ebc00-f9a8-4ca7-ab85-5fc3ffb4c300",
+    "name": "Azure DevOps Pipelines Fields API",
+    "description": "The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.\n\nContact Support:\n Name: Microsoft Azure DevOps",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:09:13.000Z",
+    "updatedAt": "2026-07-28T01:09:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e94ebc00-f9a8-4ca7-ab85-5fc3ffb4c300"
+  },
+  "item": [
+    {
+      "name": "{project}",
+      "item": [
+        {
+          "name": "_apis",
+          "item": [
+            {
+              "name": "wit",
+              "item": [
+                {
+                  "name": "fields",
+                  "item": [
+                    {
+                      "name": "List Work Item Fields",
+                      "id": "8fe81f98-ddd8-45c5-8a6e-74f177dc2ff7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:project/_apis/wit/fields?api-version=7.2-preview.3",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":project",
+                            "_apis",
+                            "wit",
+                            "fields"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "api-version",
+                              "value": "7.2-preview.3"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "cc4e345a-74c7-4fab-abb0-6b76d0921e4f",
+                              "key": "project",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "177f7bdd-9ee4-4a33-9fad-cd594b91034f",
+                              "key": "organization",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Returns all work item fields defined in the project or organization."
+                      },
+                      "response": [
+                        {
+                          "id": "33d8ef9d-4613-4642-a5f7-651c05ec5bdf",
+                          "name": "Work item fields",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:project/_apis/wit/fields?api-version=7.2-preview.3",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":project",
+                                "_apis",
+                                "wit",
+                                "fields"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "api-version",
+                                  "value": "7.2-preview.3"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"count\": \"<integer>\",\n  \"value\": [\n    {\n      \"name\": \"<string>\",\n      \"referenceName\": \"<string>\",\n      \"type\": \"plainText\",\n      \"readOnly\": \"<boolean>\",\n      \"isQueryable\": \"<boolean>\",\n      \"isIdentity\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"referenceName\": \"<string>\",\n      \"type\": \"string\",\n      \"readOnly\": \"<boolean>\",\n      \"isQueryable\": \"<boolean>\",\n      \"isIdentity\": \"<boolean>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:09:13.000Z",
+                          "updatedAt": "2026-07-28T01:09:13.000Z",
+                          "uid": "35240-33d8ef9d-4613-4642-a5f7-651c05ec5bdf"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:09:13.000Z",
+                      "updatedAt": "2026-07-28T01:09:13.000Z",
+                      "uid": "35240-8fe81f98-ddd8-45c5-8a6e-74f177dc2ff7"
+                    }
+                  ],
+                  "id": "b5c776ef-38cc-47b7-852d-dccd1418502f",
+                  "createdAt": "2026-07-28T01:09:13.000Z",
+                  "updatedAt": "2026-07-28T01:09:13.000Z",
+                  "uid": "35240-b5c776ef-38cc-47b7-852d-dccd1418502f"
+                }
+              ],
+              "id": "26c57d2a-09ae-47fd-ac3e-ef2581169eac",
+              "createdAt": "2026-07-28T01:09:13.000Z",
+              "updatedAt": "2026-07-28T01:09:13.000Z",
+              "uid": "35240-26c57d2a-09ae-47fd-ac3e-ef2581169eac"
+            }
+          ],
+          "id": "0483551a-b452-4e50-9fd5-e94d0d728459",
+          "createdAt": "2026-07-28T01:09:13.000Z",
+          "updatedAt": "2026-07-28T01:09:13.000Z",
+          "uid": "35240-0483551a-b452-4e50-9fd5-e94d0d728459"
+        }
+      ],
+      "id": "01ec5091-ea5f-4062-8814-e0a69cd33b90",
+      "createdAt": "2026-07-28T01:09:13.000Z",
+      "updatedAt": "2026-07-28T01:09:13.000Z",
+      "uid": "35240-01ec5091-ea5f-4062-8814-e0a69cd33b90"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization",
+      "value": "my-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://dev.azure.com/{{organization}}"
+    }
+  ]
+}
