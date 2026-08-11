@@ -305,9 +305,9 @@ common:
     url: https://github.com/Azure/azure-devops-cli-extension
     title: Azure DevOps CLI Extension
   - type: OpenAPI
-    url: openapi/azure-devops-work-items-openapi.yml
+    url: openapi/_original/azure-devops-work-items-openapi.yml
   - type: OpenAPI
-    url: openapi/azure-devops-pipelines-openapi.yml
+    url: openapi/_original/azure-devops-pipelines-openapi.yml
   - type: JSONSchema
     url: json-schema/azure-devops-pipelines-create-pipeline-request-schema.json
     title: Create Pipeline Request Schema
@@ -359,15 +359,6 @@ common:
   - type: Rules
     url: rules/azure-devops-spectral-rules.yml
     title: Spectral Rules
-  - type: Capabilities
-    url: capabilities/devops-project-management.yaml
-    title: DevOps Project Management Workflow
-  - type: Capabilities
-    url: capabilities/shared/work-items.yaml
-    title: Work Items Shared Capability
-  - type: Capabilities
-    url: capabilities/shared/pipelines.yaml
-    title: Pipelines Shared Capability
   - name: MCP Server
     url: https://github.com/microsoft/azure-devops-mcp
     type: MCPServer
