@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Azure DevOps Pipelines Fields Runs API",
+    "version": "7.2"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Pipeline Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dev.azure.com/{organization}/:project/_apis/pipelines/:pipelineId/runs",
+            "params": [
+              {
+                "name": "organization",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "project",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "pipelineId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "api-version",
+                "value": "example_value",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List runs for a specific pipeline."
+        },
+        {
+          "info": {
+            "name": "Run a Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dev.azure.com/{organization}/:project/_apis/pipelines/:pipelineId/runs",
+            "params": [
+              {
+                "name": "organization",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "project",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "pipelineId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "api-version",
+                "value": "example_value",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a new run of the specified pipeline."
+        },
+        {
+          "info": {
+            "name": "Get Pipeline Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dev.azure.com/{organization}/:project/_apis/pipelines/:pipelineId/runs/:runId",
+            "params": [
+              {
+                "name": "organization",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "project",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "pipelineId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "runId",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "api-version",
+                "value": "example_value",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the details of a specific pipeline run."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

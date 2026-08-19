@@ -1,0 +1,180 @@
+{
+  "item": [
+    {
+      "id": "4e258343-7a8f-4da6-8dc0-123068321e88",
+      "name": "Fields",
+      "description": {
+        "content": "Work item field definitions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "57c149d8-db3c-4e83-a71f-2ae2a15d6739",
+          "name": "List Work Item Fields",
+          "request": {
+            "name": "List Work Item Fields",
+            "description": {
+              "content": "Returns all work item fields defined in the project or organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "wit",
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.3",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8319f50-cb35-4ab8-8b44-f3662c93b280",
+              "name": "Work item fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 10,\n  \"value\": [\n    {\n      \"name\": \"Example Title\",\n      \"referenceName\": \"example_value\",\n      \"type\": \"string\",\n      \"readOnly\": true,\n      \"isQueryable\": true,\n      \"isIdentity\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Azure DevOps organization name",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "my-org",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://dev.azure.com/{{organization}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a41bf645-e008-4e05-815e-6b2df90b2f84",
+    "name": "Azure DevOps Pipelines Fields API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.\n\nContact Support:\n Name: Microsoft Azure DevOps",
+      "type": "text/plain"
+    }
+  }
+}

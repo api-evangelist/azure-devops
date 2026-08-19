@@ -1,0 +1,191 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Azure DevOps Pipelines Fields WorkItems API",
+    "version": "7.2"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WorkItems",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Work Item by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dev.azure.com/{organization}/:project/_apis/wit/workitems/:id",
+            "params": [
+              {
+                "name": "organization",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "project",
+                "value": "example_value",
+                "type": "path",
+                "description": "Project name or ID"
+              },
+              {
+                "name": "id",
+                "value": "abc123",
+                "type": "path",
+                "description": "Work item ID"
+              },
+              {
+                "name": "$expand",
+                "value": "all",
+                "type": "query",
+                "description": "Expand related entities (all, fields, relations, links, none)"
+              },
+              {
+                "name": "$select",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated list of fields to return"
+              },
+              {
+                "name": "api-version",
+                "value": "example_value",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a single work item by its numeric ID. Supports field selection and expansion of related entities."
+        },
+        {
+          "info": {
+            "name": "Update Work Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://dev.azure.com/{organization}/:project/_apis/wit/workitems/:id",
+            "params": [
+              {
+                "name": "organization",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "project",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "abc123",
+                "type": "path"
+              },
+              {
+                "name": "api-version",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "suppressNotifications",
+                "value": "true",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a work item using JSON Patch operations. Supports updating fields, adding/removing links, and attaching files."
+        },
+        {
+          "info": {
+            "name": "Create a New Work Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dev.azure.com/{organization}/:project/_apis/wit/workitems/$:type",
+            "params": [
+              {
+                "name": "organization",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "project",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "example_value",
+                "type": "path",
+                "description": "Work item type (e.g., Bug, Task, User Story, Epic, Feature)"
+              },
+              {
+                "name": "api-version",
+                "value": "example_value",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new work item of the specified type. Uses JSON Patch to set field values."
+        },
+        {
+          "info": {
+            "name": "Get Work Items by Ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dev.azure.com/{organization}/:project/_apis/wit/workitems",
+            "params": [
+              {
+                "name": "organization",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "project",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "ids",
+                "value": "example_value",
+                "type": "query",
+                "description": "Comma-separated list of work item IDs (max 200)"
+              },
+              {
+                "name": "$expand",
+                "value": "example_value",
+                "type": "query"
+              },
+              {
+                "name": "api-version",
+                "value": "example_value",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns multiple work items by a list of IDs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

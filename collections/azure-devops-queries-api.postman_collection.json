@@ -1,0 +1,211 @@
+{
+  "item": [
+    {
+      "id": "61cf5c53-c03d-4a11-8898-dd2308eb2ebe",
+      "name": "Queries",
+      "description": {
+        "content": "Work item query execution",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3806c3ec-84f4-41c6-800e-1541c3882426",
+          "name": "Query Work Items Using Wiql",
+          "request": {
+            "name": "Query Work Items Using Wiql",
+            "description": {
+              "content": "Executes a Work Item Query Language (WIQL) query to find work items matching the specified criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "wit",
+                "wiql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$top",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.2",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7372ed9f-e22d-4f39-b4c7-4a4bfc43b408",
+              "name": "Query results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "wit",
+                    "wiql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$top",
+                      "value": "10"
+                    },
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"queryType\": \"flat\",\n  \"asOf\": \"2026-01-15T10:30:00Z\",\n  \"workItems\": [\n    {\n      \"id\": \"abc123\",\n      \"url\": \"https://www.example.com\"\n    }\n  ],\n  \"workItemRelations\": [\n    {\n      \"source\": {\n        \"id\": \"abc123\"\n      },\n      \"target\": {\n        \"id\": \"abc123\"\n      },\n      \"rel\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Azure DevOps organization name",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "my-org",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://dev.azure.com/{{organization}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6f71babe-f07e-4bda-a6b1-a318cdbc4f31",
+    "name": "Azure DevOps Pipelines Fields Queries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.\n\nContact Support:\n Name: Microsoft Azure DevOps",
+      "type": "text/plain"
+    }
+  }
+}

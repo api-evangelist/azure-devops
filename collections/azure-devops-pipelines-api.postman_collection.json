@@ -1,0 +1,563 @@
+{
+  "item": [
+    {
+      "id": "0ec6b3f8-29f7-4cb7-915c-d17265ca7281",
+      "name": "Pipelines",
+      "description": {
+        "content": "Pipeline definition management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "97149daa-9a29-43e0-929d-6935305955c9",
+          "name": "List Pipelines",
+          "request": {
+            "name": "List Pipelines",
+            "description": {
+              "content": "List all pipelines in the project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "pipelines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$orderBy",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "$top",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.1",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50002b48-2f9a-4868-a85e-c2f05e8f92cd",
+              "name": "List of pipelines",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$orderBy",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "$top",
+                      "value": "10"
+                    },
+                    {
+                      "key": "continuationToken",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 10,\n  \"value\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"revision\": 10,\n      \"folder\": \"example_value\",\n      \"configuration\": {\n        \"type\": \"yaml\",\n        \"path\": \"example_value\",\n        \"repository\": {}\n      },\n      \"url\": \"https://www.example.com\",\n      \"links\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b164774c-df75-4044-a8e1-b1b19bdd8ac4",
+          "name": "Create a Pipeline",
+          "request": {
+            "name": "Create a Pipeline",
+            "description": {
+              "content": "Creates a new pipeline from a YAML definition in a repository.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "pipelines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.1",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": {\n    \"type\": \"<string>\",\n    \"path\": \"<string>\",\n    \"repository\": {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  },\n  \"folder\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2d9a934-8c2f-41ce-a23d-aa849a00cfe0",
+              "name": "Created pipeline",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"folder\": \"example_value\",\n  \"configuration\": {\n    \"type\": \"yaml\",\n    \"path\": \"example_value\",\n    \"repository\": {\n      \"id\": \"abc123\",\n      \"type\": \"azureReposGit\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"revision\": 10,\n  \"folder\": \"example_value\",\n  \"configuration\": {\n    \"type\": \"yaml\",\n    \"path\": \"example_value\",\n    \"repository\": {\n      \"id\": \"abc123\",\n      \"type\": \"azureReposGit\"\n    }\n  },\n  \"url\": \"https://www.example.com\",\n  \"links\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af8a6e7b-e60d-4169-8a98-ce246566a10e",
+          "name": "Get Pipeline",
+          "request": {
+            "name": "Get Pipeline",
+            "description": {
+              "content": "Get a specific pipeline by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":project",
+                "_apis",
+                "pipelines",
+                ":pipelineId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "7.2-preview.1",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{organization}}",
+                  "key": "organization",
+                  "description": "Azure DevOps organization name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "pipelineId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "672f242d-233a-4036-ba09-d0f6bc054af1",
+              "name": "Pipeline details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "pipelines",
+                    ":pipelineId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "pipelineId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"revision\": 10,\n  \"folder\": \"example_value\",\n  \"configuration\": {\n    \"type\": \"yaml\",\n    \"path\": \"example_value\",\n    \"repository\": {\n      \"id\": \"abc123\",\n      \"type\": \"azureReposGit\"\n    }\n  },\n  \"url\": \"https://www.example.com\",\n  \"links\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7653652f-658e-4e26-bb9b-537ed5335ed8",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":project",
+                    "_apis",
+                    "pipelines",
+                    ":pipelineId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{organization}}",
+                      "key": "organization",
+                      "description": "Azure DevOps organization name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "pipelineId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example_value\",\n  \"errorCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Azure DevOps organization name",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "my-org",
+      "key": "organization"
+    },
+    {
+      "type": "string",
+      "value": "https://dev.azure.com/{{organization}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "578d0b7c-3387-42ed-a6c7-8a4b5a35f65f",
+    "name": "Azure DevOps Fields Pipelines API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Azure DevOps Pipelines API provides REST endpoints for managing CI/CD build and release pipelines. APIs support pipeline creation, triggering builds, retrieving build results, managing release definitions, and automating deployment workflows across Azure DevOps organizations.\n\nContact Support:\n Name: Microsoft Azure DevOps",
+      "type": "text/plain"
+    }
+  }
+}

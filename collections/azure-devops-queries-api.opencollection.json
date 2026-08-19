@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Azure DevOps Pipelines Fields Queries API",
+    "version": "7.2"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Queries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Work Items Using Wiql",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dev.azure.com/{organization}/:project/_apis/wit/wiql",
+            "params": [
+              {
+                "name": "organization",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "project",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "$top",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "api-version",
+                "value": "example_value",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Executes a Work Item Query Language (WIQL) query to find work items matching the specified criteria."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

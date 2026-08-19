@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Azure DevOps Pipelines Fields API",
+    "version": "7.2"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Work Item Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dev.azure.com/{organization}/:project/_apis/wit/fields",
+            "params": [
+              {
+                "name": "organization",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "project",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "api-version",
+                "value": "example_value",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all work item fields defined in the project or organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
