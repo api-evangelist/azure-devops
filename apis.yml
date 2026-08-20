@@ -59,6 +59,14 @@ apis:
   - Azure
   - CI/CD
   - DevOps
+  - npm
+  - NuGet
+  - Package Management
+  tags_raw:
+  - Artifacts
+  - Azure
+  - CI/CD
+  - DevOps
   - Npm
   - NuGet
   - Package Management
@@ -168,6 +176,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
   baseURL: https://dev.azure.com/{organization}
   tags:
+  - Query
+  tags_raw:
   - Queries
   properties:
   - type: OpenAPI
@@ -210,6 +220,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
   baseURL: https://dev.azure.com/{organization}
   tags:
+  - Work Items
+  tags_raw:
   - WorkItems
   properties:
   - type: OpenAPI
