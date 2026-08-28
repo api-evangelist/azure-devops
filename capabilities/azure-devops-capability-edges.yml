@@ -1,0 +1,37 @@
+slug: azure-devops
+provider: Azure DevOps
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Pipelines
+  spec_file: azure-devops-pipelines-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.83
+  evidence: '"managing CI/CD build and release pipelines"; "POST /{project}/_apis/pipelines createPipeline
+    Create a Pipeline"'
+  reason: Operations create and list CI/CD build pipelines — build pipeline definition and policy, i.e.
+    continuous integration management within software release & deployment. Slight ambiguity because pipelines
+    also cover release/deployment orchestration.
+- tag: Runs
+  spec_file: azure-devops-runs-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.82
+  evidence: '"POST /{project}/_apis/pipelines/{pipelineId}/runs runPipeline Run a Pipeline"; "GET .../runs/{runId}
+    getPipelineRun"'
+  reason: Triggering pipeline runs and retrieving build results is continuous integration execution; no
+    other reading of these operations fits.

@@ -2,6 +2,17 @@ aid: azure-devops
 name: Azure DevOps
 description: Learn the basic patterns for using the REST APIs for Azure DevOps Services and Azure DevOps Server.
 url: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
@@ -238,6 +249,9 @@ apis:
     url: >-
       https://learn.microsoft.com/en-us/rest/api/azure/devops/pipelines/?view=azure-devops-rest-7.2
 common:
+  - type: CapabilityMap
+    url: capabilities/azure-devops-capability-edges.yml
+    name: Azure DevOps Business Capability Map
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/azure-devops/overview
   - type: AgenticAccess
