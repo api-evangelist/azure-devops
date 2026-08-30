@@ -26,7 +26,6 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
-image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
 tags:
   - Azure
   - CI/CD
@@ -47,7 +46,6 @@ apis:
   - Git
   - Pull Requests
   - Version Control
-  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
   baseURL: https://dev.azure.com/{organization}
   properties:
@@ -70,7 +68,7 @@ apis:
   - Azure
   - CI/CD
   - DevOps
-  - npm
+  - Npm
   - NuGet
   - Package Management
   tags_raw:
@@ -81,7 +79,6 @@ apis:
   - Npm
   - NuGet
   - Package Management
-  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
   baseURL: https://pkgs.dev.azure.com/{organization}
   properties:
@@ -103,7 +100,6 @@ apis:
   - DevOps
   - Test Plans
   - Testing
-  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
   baseURL: https://dev.azure.com/{organization}
   properties:
@@ -125,7 +121,6 @@ apis:
   - Deployment
   - DevOps
   - Release Management
-  image: https://raw.githubusercontent.com/api-evangelist/azure-devops/refs/heads/main/image.png
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
   baseURL: https://vsrm.dev.azure.com/{organization}
   properties:
@@ -231,7 +226,7 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
   baseURL: https://dev.azure.com/{organization}
   tags:
-  - Work Items
+  - WorkItems
   tags_raw:
   - WorkItems
   properties:
