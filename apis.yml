@@ -68,7 +68,7 @@ apis:
   - Azure
   - CI/CD
   - DevOps
-  - Npm
+  - npm
   - NuGet
   - Package Management
   tags_raw:
@@ -226,7 +226,7 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/
   baseURL: https://dev.azure.com/{organization}
   tags:
-  - WorkItems
+  - Work Items
   tags_raw:
   - WorkItems
   properties:
